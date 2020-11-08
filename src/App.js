@@ -8,10 +8,8 @@ import "./App.css";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
+import Blog from "./components/blog.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -40,9 +38,7 @@ class App extends Component {
 
     if (user) {
       this.setState({
-        currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        currentUser: user
       });
     }
   }
@@ -52,7 +48,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser } = this.state;
 
     return (
       <Router history={history}>
@@ -62,35 +58,12 @@ class App extends Component {
               RABADAN.RU
             </Link>
             <div className="navbar-nav mr-auto">
+
               <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  {i18n.t("home")}
+                <Link to={"/blog"} className="nav-link">
+                  {i18n.t('blog.blog')}
                 </Link>
               </li>
-
-              {showModeratorBoard && (
-                <li className="nav-item">
-                  <Link to={"/mod"} className="nav-link">
-                    Moderator Board
-                  </Link>
-                </li>
-              )}
-
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
-
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
-                  </Link>
-                </li>
-              )}
             </div>
 
             {currentUser ? (
@@ -101,7 +74,7 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a href={"/logout"} className="nav-link" onClick={this.logOut}>
+                  <a href={"/login"} className="nav-link" onClick={this.logOut}>
                     {i18n.t("auth.logout")}
                   </a>
                 </li>
@@ -125,13 +98,11 @@ class App extends Component {
 
           <div className="container mt-3">
             <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />
+              <Route exact path={"/"} component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
-              <Route path="/user" component={BoardUser} />
-              <Route path="/mod" component={BoardModerator} />
-              <Route path="/admin" component={BoardAdmin} />
+              <Route path="/blog" component={Blog} />
             </Switch>
           </div>
         </div>

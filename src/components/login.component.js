@@ -110,7 +110,9 @@ class Login extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">
+                {i18n.t('auth.field.password')}
+              </label>
               <Input
                 type="password"
                 className="form-control"
@@ -129,7 +131,7 @@ class Login extends Component {
                 {this.state.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Login</span>
+                <span>{i18n.t('auth.login')}</span>
               </button>
             </div>
 

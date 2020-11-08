@@ -3,6 +3,18 @@
   "auth": {
     "login": "Sign in",
     "logout": "Logout",
-    "sign_up": "Регистрация"
+    "register_now": "Register now",
+    "sign_up": "Регистрация",
+    "profile": "Profile",
+    "field": {
+      "password": "Password"
+    }
+  },
+  "blog": {
+    "blog": "Blog"
+  },
+  "errors": {
+    "email_not_valid": "This is not a valid email.",
+    "field_required": "This field is required!"
   }
 }

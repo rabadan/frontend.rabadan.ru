@@ -11,8 +11,8 @@ import i18n from "../I18n";
 const required = (value) => {
   if (!value) {
     return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
+      <div className="alert alert-danger py-0 px-2" role="alert">
+        {i18n.t('errors.field_required')}
       </div>
     );
   }
@@ -21,8 +21,8 @@ const required = (value) => {
 const email = (value) => {
   if (!isEmail(value)) {
     return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
+      <div className="alert alert-danger py-0 px-2" role="alert">
+        {i18n.t('errors.email_not_valid')}
       </div>
     );
   }
@@ -31,7 +31,7 @@ const email = (value) => {
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
-      <div className="alert alert-danger" role="alert">
+      <div className="alert alert-danger py-0 px-2" role="alert">
         The password must be between 6 and 40 characters.
       </div>
     );
@@ -125,7 +125,7 @@ class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">{i18n.t('auth.field.password')}</label>
                   <Input
                     type="password"
                     className="form-control"
@@ -137,7 +137,9 @@ class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                  <button className="btn btn-primary btn-block">
+                    {i18n.t('auth.register_now')}
+                  </button>
                 </div>
               </div>
             )}
