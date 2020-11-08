@@ -6,6 +6,7 @@ import { isEmail } from "validator";
 
 import { connect } from "react-redux";
 import { register } from "../actions/auth";
+import i18n from "../I18n";
 
 const required = (value) => {
   if (!value) {
@@ -96,6 +97,7 @@ class Register extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
+          <h3 className={'text-center mb-4'}>{i18n.t("auth.sign_up")}</h3>
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import i18n from '../I18n';
 
 import { connect } from "react-redux";
 import { login } from "../actions/auth";
@@ -83,6 +84,7 @@ class Login extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
+          <h3 className={'text-center mb-4'}>{i18n.t("auth.login")}</h3>
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"

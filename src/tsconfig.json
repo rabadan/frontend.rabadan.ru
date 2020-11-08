@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true
+  },
+  "exclude": [
+    "__tests__/*"
+  ]
+}

@@ -17,6 +17,7 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from './helpers/history';
+import i18n from './I18n';
 
 class App extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class App extends Component {
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
-                  Home
+                  {i18n.t("home")}
                 </Link>
               </li>
 
@@ -100,8 +101,8 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
+                  <a href={"/logout"} className="nav-link" onClick={this.logOut}>
+                    {i18n.t("auth.logout")}
                   </a>
                 </li>
               </div>
@@ -109,13 +110,13 @@ class App extends Component {
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link to={"/login"} className="nav-link">
-                    Login
+                    {i18n.t("auth.login")}
                   </Link>
                 </li>
 
                 <li className="nav-item">
                   <Link to={"/register"} className="nav-link">
-                    Sign Up
+                    {i18n.t("auth.sign_up")}
                   </Link>
                 </li>
               </div>
