@@ -1,90 +1,111 @@
-import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import i18n from '../I18n';
+// @ts-ignore
+import Form from 'react-validation/build/form'
+// @ts-ignore
+import Input from 'react-validation/build/input'
+// @ts-ignore
+import CheckButton from 'react-validation/build/button'
+import i18n from '../I18n'
 
-import { connect } from "react-redux";
-import { login } from "../actions/auth";
+import { connect } from 'react-redux'
+import { login } from '../actions/Auth'
 
-const required = (value) => {
+type TProps = {
+  form: Form,
+  checkBtn: CheckButton,
+  dispatch: any,
+  history: any,
+  preventDefault: any,
+  isLoggedIn: boolean,
+  message: string
+}
+interface ILoginComponentState {
+  email: string,
+  password: string,
+  loading: boolean
+}
+
+const required = (value: string) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
         This field is required!
       </div>
-    );
+    )
   }
-};
+}
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+class Login extends Component<TProps, ILoginComponentState> {
+  private form: Form;
+  private checkBtn: CheckButton;
+
+  constructor (props: TProps) {
+    super(props)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.onChangeEmail = this.onChangeEmail.bind(this)
+    this.onChangePassword = this.onChangePassword.bind(this)
 
     this.state = {
-      email: "",
-      password: "",
-      loading: false,
-    };
+      email: '',
+      password: '',
+      loading: false
+    }
   }
 
-  onChangeEmail(e) {
+  onChangeEmail (e: Input) {
     this.setState({
-      email: e.target.value,
-    });
+      email: e.target.value
+    })
   }
 
-  onChangePassword(e) {
+  onChangePassword (e: Input) {
     this.setState({
-      password: e.target.value,
-    });
+      password: e.target.value
+    })
   }
 
-  handleLogin(e) {
-    e.preventDefault();
+  handleLogin (e: TProps) {
+    e.preventDefault()
 
     this.setState({
-      loading: true,
-    });
+      loading: true
+    })
 
-    this.form.validateAll();
+    this.form.validateAll()
 
-    const { dispatch, history } = this.props;
+    const { dispatch, history } = this.props
 
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.email, this.state.password))
         .then(() => {
-          history.push("/profile");
-          window.location.reload();
+          history.push('/profile')
+          window.location.reload()
         })
         .catch(() => {
           this.setState({
             loading: false
-          });
-        });
+          })
+        })
     } else {
       this.setState({
-        loading: false,
-      });
+        loading: false
+      })
     }
   }
 
-  render() {
-    const { isLoggedIn, message } = this.props;
+  render () {
+    const { isLoggedIn, message } = this.props
 
     if (isLoggedIn) {
-      return <Redirect to="/profile" />;
+      return <Redirect to="/profile"/>
     }
 
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <h3 className={'text-center mb-4'}>{i18n.t("auth.login")}</h3>
+          <h3 className={'text-center mb-4'}>{i18n.t('auth.login')}</h3>
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"
@@ -93,9 +114,7 @@ class Login extends Component {
 
           <Form
             onSubmit={this.handleLogin}
-            ref={(c) => {
-              this.form = c;
-            }}
+            ref={(c: Form) => { this.form = c }}
           >
             <div className="form-group">
               <label htmlFor="Email">Email</label>
@@ -143,25 +162,23 @@ class Login extends Component {
               </div>
             )}
             <CheckButton
-              style={{ display: "none" }}
-              ref={(c) => {
-                this.checkBtn = c;
-              }}
+              style={{ display: 'none' }}
+              ref={(c: CheckButton) => { this.checkBtn = c }}
             />
           </Form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
-  const { isLoggedIn } = state.auth;
-  const { message } = state.message;
+function mapStateToProps (state: any) {
+  const { isLoggedIn } = state.auth
+  const { message } = state.message
   return {
     isLoggedIn,
     message
-  };
+  }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Login)

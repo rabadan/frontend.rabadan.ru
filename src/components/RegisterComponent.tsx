@@ -1,14 +1,19 @@
-import React, { Component } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
+import React, { Component } from 'react';
+// @ts-ignore
+import Form from 'react-validation/build/form';
+// @ts-ignore
+import Input from 'react-validation/build/input';
+// @ts-ignore
+import CheckButton from 'react-validation/build/button';
+// @ts-ignore
+import { isEmail } from 'validator';
 
-import { connect } from "react-redux";
-import { register } from "../actions/auth";
-import i18n from "../I18n";
+import { connect } from 'react-redux';
+import { register } from '../actions/Auth';
+import i18n from '../I18n';
+import {Redirect} from "react-router-dom";
 
-const required = (value) => {
+const required = (value: string) => {
   if (!value) {
     return (
       <div className="alert alert-danger py-0 px-2" role="alert">
@@ -18,7 +23,7 @@ const required = (value) => {
   }
 };
 
-const email = (value) => {
+const email = (value: string) => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger py-0 px-2" role="alert">
@@ -28,7 +33,7 @@ const email = (value) => {
   }
 };
 
-const vpassword = (value) => {
+const vpassword = (value: string) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger py-0 px-2" role="alert">
@@ -38,66 +43,82 @@ const vpassword = (value) => {
   }
 };
 
-class Register extends Component {
-  constructor(props) {
+type TRegisterComponentProps = {
+  dispatch: any,
+  history: any,
+  message: string,
+  preventDefault: any,
+  isLoggedIn: boolean
+}
+interface IRegisterComponentState { email: string, password: string, successful: boolean }
+
+class Register extends Component<TRegisterComponentProps, IRegisterComponentState> {
+  private checkBtn: CheckButton;
+  private form: Form;
+  constructor(props: TRegisterComponentProps) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
-      email: "",
-      password: "",
-      successful: false,
+      email: '',
+      password: '',
+      successful: false
     };
   }
 
-  onChangeEmail(e) {
+  onChangeEmail(e: Input) {
     this.setState({
-      email: e.target.value,
+      email: e.target.value
     });
   }
 
-  onChangePassword(e) {
+  onChangePassword(e: Input) {
     this.setState({
-      password: e.target.value,
+      password: e.target.value
     });
   }
 
-  handleRegister(e) {
+  handleRegister(e: TRegisterComponentProps) {
     e.preventDefault();
 
+    const { dispatch, history } = this.props
+
     this.setState({
-      successful: false,
+      successful: false
     });
 
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      this.props
-        .dispatch(
-          register(this.state.email, this.state.password)
-        )
+      dispatch(register(this.state.email, this.state.password))
         .then(() => {
           this.setState({
-            successful: true,
+            successful: true
           });
+          history.push('/profile')
+          window.location.reload()
         })
         .catch(() => {
           this.setState({
-            successful: false,
+            successful: false
           });
         });
     }
   }
 
   render() {
-    const { message } = this.props;
+    const { isLoggedIn, message } = this.props
+
+    if (isLoggedIn) {
+      return <Redirect to="/profile"/>
+    }
 
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <h3 className={'text-center mb-4'}>{i18n.t("auth.sign_up")}</h3>
+          <h3 className={'text-center mb-4'}>{i18n.t('auth.sign_up')}</h3>
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"
@@ -106,7 +127,7 @@ class Register extends Component {
 
           <Form
             onSubmit={this.handleRegister}
-            ref={(c) => {
+            ref={(c: Form) => {
               this.form = c;
             }}
           >
@@ -125,7 +146,9 @@ class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="password">{i18n.t('auth.field.password')}</label>
+                  <label htmlFor="password">
+                    {i18n.t('auth.field.password')}
+                  </label>
                   <Input
                     type="password"
                     className="form-control"
@@ -146,14 +169,21 @@ class Register extends Component {
 
             {message && (
               <div className="form-group">
-                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                <div
+                  className={
+                    this.state.successful
+                      ? 'alert alert-success'
+                      : 'alert alert-danger'
+                  }
+                  role="alert"
+                >
                   {message}
                 </div>
               </div>
             )}
             <CheckButton
-              style={{ display: "none" }}
-              ref={(c) => {
+              style={{ display: 'none' }}
+              ref={(c: CheckButton) => {
                 this.checkBtn = c;
               }}
             />
@@ -164,10 +194,10 @@ class Register extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   const { message } = state.message;
   return {
-    message,
+    message
   };
 }
 

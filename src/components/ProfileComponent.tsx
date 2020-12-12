@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import {TUser} from "../interfaces/IUser";
 
-class Profile extends Component {
+type TProfileComponentProps = { user: TUser }
 
+class Profile extends Component<TProfileComponentProps> {
   render() {
     const { user: currentUser } = this.props;
 
@@ -23,10 +25,10 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   const { user } = state.auth;
   return {
-    user,
+    user
   };
 }
 

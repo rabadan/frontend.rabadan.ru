@@ -8,7 +8,9 @@
     "profile": "Profile",
     "field": {
       "password": "Password"
-    }
+    },
+    "successfully_logged": "You have successfully logged in",
+    "registered": "You have successfully registered"
   },
   "blog": {
     "blog": "Blog"
