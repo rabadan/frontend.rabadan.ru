@@ -11,7 +11,7 @@ export default class Home extends Component<THomeComponentProps, IHomeComponentS
     super(props);
 
     this.state = {
-      h1: '1',
+      h1: '',
       body: ''
     }
   }

@@ -9,7 +9,7 @@ import CheckButton from 'react-validation/build/button';
 import { isEmail } from 'validator';
 
 import { connect } from 'react-redux';
-import { register } from '../actions/Auth';
+import { register } from '../actions/AuthAction';
 import i18n from '../I18n';
 import {Redirect} from "react-router-dom";
 
@@ -195,7 +195,7 @@ class Register extends Component<TRegisterComponentProps, IRegisterComponentStat
 }
 
 function mapStateToProps(state: any) {
-  const { message } = state.message;
+  const { message } = state.MessageReducer;
   return {
     message
   };

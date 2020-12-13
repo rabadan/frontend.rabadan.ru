@@ -10,7 +10,8 @@ import {
 
 import IReduxAction from "../interfaces/IReduxAction";
 import {IUser} from "../interfaces/IUser";
-interface IAuthState {
+
+interface IAuthReducer {
   apiLoading: boolean,
   isLoggedIn: boolean,
   user?: IUser
@@ -18,11 +19,13 @@ interface IAuthState {
 
 const user = JSON.parse(localStorage.getItem('user') as string);
 
-const initialState = user
-  ? { apiLoading: false, isLoggedIn: true, user }
-  : { apiLoading: false, isLoggedIn: false, user: null };
+const initialState: IAuthReducer = {
+  apiLoading: false,
+  isLoggedIn: !!user,
+  user: (user ? user : undefined)
+}
 
-export default function (state = initialState, action: IReduxAction): IAuthState {
+export default function (state = initialState, action: IReduxAction): IAuthReducer {
   const { type, payload } = action;
 
   switch (type) {

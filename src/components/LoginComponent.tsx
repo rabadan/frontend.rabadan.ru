@@ -10,7 +10,7 @@ import CheckButton from 'react-validation/build/button'
 import i18n from '../I18n'
 
 import { connect } from 'react-redux'
-import { login } from '../actions/Auth'
+import { login } from '../actions/AuthAction'
 
 type TProps = {
   form: Form,
@@ -173,8 +173,8 @@ class Login extends Component<TProps, ILoginComponentState> {
 }
 
 function mapStateToProps (state: any) {
-  const { isLoggedIn } = state.auth
-  const { message } = state.message
+  const { isLoggedIn } = state.AuthReducer
+  const { message } = state.MessageReducer
   return {
     isLoggedIn,
     message

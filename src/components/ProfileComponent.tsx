@@ -26,7 +26,7 @@ class Profile extends Component<TProfileComponentProps> {
 }
 
 function mapStateToProps(state: any) {
-  const { user } = state.auth;
+  const { user } = state.AuthReducer;
   return {
     user
   };

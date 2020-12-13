@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from "react-redux";
 import { Router, Switch, Route, Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,52 +11,58 @@ import Home from './components/HomeComponent';
 import Blog from './components/BlogComponent';
 import Profile from './components/ProfileComponent';
 
-import { logout } from './actions/Auth';
-import { clearMessage } from './actions/Message';
+import {logout} from './actions/AuthAction';
+import {clearMessage} from "./actions/MessageAction";
 
 import { history } from './helpers/History';
 import i18n from './I18n';
-import {IUser, TUser} from "./interfaces/IUser";
+import {IUser} from "./interfaces/IUser";
+import {TRootState} from "./index";
 
-type TAppProps = { user: TUser, dispatch: any }
 interface IAppState {
-  showModeratorBoard: boolean;
-  showAdminBoard: boolean;
-  currentUser?: IUser;
+  showModeratorBoard?: boolean;
+  showAdminBoard?: boolean;
+  user?: IUser | undefined;
 }
 
-class App extends Component<TAppProps, IAppState> {
-  constructor(props: TAppProps) {
+const connector = connect(
+  ({ AuthReducer }: TRootState) => ({
+    user: AuthReducer.user
+  }),
+  { },
+);
+
+type TAppContainerProps = ConnectedProps<typeof connector>;
+
+class App extends Component<TAppContainerProps, IAppState> {
+  constructor(props: TAppContainerProps) {
     super(props);
     this.logOut = this.logOut.bind(this);
 
     this.state = {
       showModeratorBoard: false,
       showAdminBoard: false,
-      currentUser: undefined
+      user: props.user,
     };
 
     history.listen(() => {
-      props.dispatch(clearMessage()); // clear message when changing location
+      // this.props.dispatch(clearMessage()); - так было раньше
+
+      // @ts-ignore
+      this.props.dispatch(clearMessage())
     });
   }
 
-  componentDidMount() {
-    const user = this.props.user;
-
-    if (user) {
-      this.setState({
-        currentUser: user
-      });
-    }
-  }
-
   logOut() {
+    // this.props.dispatch(logout());  - так было раньше
+
+    // @ts-ignore
     this.props.dispatch(logout());
   }
 
   render() {
-    const { currentUser } = this.state;
+    console.log(this);
+    const { user } = this.state;
 
     return (
       <Router history={history}>
@@ -73,11 +79,11 @@ class App extends Component<TAppProps, IAppState> {
               </li>
             </div>
 
-            {currentUser ? (
+            {user ? (
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link to={'/profile'} className="nav-link">
-                    {currentUser.email}
+                    {user.email}
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -119,7 +125,7 @@ class App extends Component<TAppProps, IAppState> {
 }
 
 function mapStateToProps(state: any) {
-  const { user } = state.auth;
+  const { user } = state.AuthReducer;
   return { user };
 }
 
