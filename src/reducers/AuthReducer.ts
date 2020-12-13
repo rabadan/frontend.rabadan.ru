@@ -8,7 +8,7 @@ import {
   USER_LOGOUT
 } from '../actions/Types';
 
-import IReduxAction from "../interfaces/IReduxAction";
+import {IReduxAction} from "../interfaces/IReduxAction";
 import {IUser} from "../interfaces/IUser";
 
 interface IAuthReducer {
@@ -25,7 +25,7 @@ const initialState: IAuthReducer = {
   user: (user ? user : undefined)
 }
 
-export default function (state = initialState, action: IReduxAction): IAuthReducer {
+export default function (state = initialState, action: IReduxAction<any>): IAuthReducer {
   const { type, payload } = action;
 
   switch (type) {

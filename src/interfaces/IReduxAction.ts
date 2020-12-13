@@ -1,7 +1,7 @@
 import { Action, AnyAction } from "redux";
 
-export default interface IReduxAction<T = any, ActionType = any> extends Action<ActionType> {
-  payload: { data: T };
+export interface IReduxAction<T = any, ActionType = any> extends Action<ActionType> {
+  payload: T;
   error?: any;
   meta: {
     previousAction: AnyAction

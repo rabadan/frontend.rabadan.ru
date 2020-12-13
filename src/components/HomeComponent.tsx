@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import UserRequest from '../requests/UserRequest';
 import {TError} from "../interfaces/IError";
 
-type THomeComponentProps = { dispatch: any }
+type THomeComponentProps = {}
 interface IHomeComponentState { h1: string, body: string }
 
 export default class Home extends Component<THomeComponentProps, IHomeComponentState> {
@@ -18,7 +18,7 @@ export default class Home extends Component<THomeComponentProps, IHomeComponentS
 
   componentDidMount() {
     UserRequest.index().then(
-      (response: any) => {
+      (response: IHomeComponentState) => {
         this.setState({
           h1: response.h1,
           body: response.body

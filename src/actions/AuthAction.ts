@@ -6,11 +6,13 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
-  SET_MESSAGE
+  SET_MESSAGE, GET_BLOG, GET_BLOG_SUCCESS, GET_BLOG_FAIL
 } from './Types';
 import AuthRequest from '../requests/AuthRequest';
+import BlogRequest from "../requests/BlogRequest";
+import {Dispatch} from "redux";
 
-export const register = (email: string, password: string) => (dispatch: any) => {
+export const register = (email: string, password: string) => (dispatch: Dispatch) => {
   dispatch({ type: USER_REGISTER });
 
   return AuthRequest.sign_up(email, password).then(
@@ -27,7 +29,7 @@ export const register = (email: string, password: string) => (dispatch: any) => 
   );
 };
 
-export const login = (email: string, password: string) => (dispatch: any) => {
+export const login = (email: string, password: string) => (dispatch: Dispatch) => {
   dispatch({ type: USER_LOGIN });
 
   return AuthRequest.sign_in(email, password).then(
@@ -45,7 +47,10 @@ export const login = (email: string, password: string) => (dispatch: any) => {
   );
 };
 
-export const logout = () => (dispatch: any) => {
-  localStorage.removeItem('user');
-  return dispatch({ type: USER_LOGOUT });
-};
+export function logout() {
+  return (dispatch: Dispatch) => {
+    localStorage.removeItem('user');
+    dispatch({ type: USER_LOGOUT });
+    return Promise.resolve();
+  };
+}

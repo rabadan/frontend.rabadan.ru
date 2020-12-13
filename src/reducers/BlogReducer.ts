@@ -7,7 +7,7 @@ import {
   GET_BLOG_FAIL,
 } from '../actions/Types';
 
-import IReduxAction from "../interfaces/IReduxAction";
+import {IReduxAction} from "../interfaces/IReduxAction";
 import {IBlog} from "../interfaces/IBlog";
 
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component, SyntheticEvent} from 'react'
 import { Redirect } from 'react-router-dom'
 
 // @ts-ignore
@@ -9,18 +9,20 @@ import Input from 'react-validation/build/input'
 import CheckButton from 'react-validation/build/button'
 import i18n from '../I18n'
 
-import { connect } from 'react-redux'
+import {connect, ConnectedProps} from 'react-redux'
 import { login } from '../actions/AuthAction'
+import {TRootState} from "../index";
+import { history } from '../helpers/History';
 
-type TProps = {
-  form: Form,
-  checkBtn: CheckButton,
-  dispatch: any,
-  history: any,
-  preventDefault: any,
-  isLoggedIn: boolean,
-  message: string
-}
+const connector = connect(
+  ({ AuthReducer, MessageReducer }: TRootState) => ({
+    isLoggedIn: AuthReducer.isLoggedIn,
+    message: MessageReducer.message,
+  }),
+  { login },
+);
+type TLoginProps = ConnectedProps<typeof connector>;
+
 interface ILoginComponentState {
   email: string,
   password: string,
@@ -37,11 +39,11 @@ const required = (value: string) => {
   }
 }
 
-class Login extends Component<TProps, ILoginComponentState> {
+class Login extends Component<TLoginProps, ILoginComponentState> {
   private form: Form;
   private checkBtn: CheckButton;
 
-  constructor (props: TProps) {
+  constructor (props: TLoginProps) {
     super(props)
     this.handleLogin = this.handleLogin.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this)
@@ -66,7 +68,7 @@ class Login extends Component<TProps, ILoginComponentState> {
     })
   }
 
-  handleLogin (e: TProps) {
+  async handleLogin (e: SyntheticEvent) {
     e.preventDefault()
 
     this.setState({
@@ -75,10 +77,8 @@ class Login extends Component<TProps, ILoginComponentState> {
 
     this.form.validateAll()
 
-    const { dispatch, history } = this.props
-
     if (this.checkBtn.context._errors.length === 0) {
-      dispatch(login(this.state.email, this.state.password))
+      await this.props.login(this.state.email, this.state.password)
         .then(() => {
           history.push('/profile')
           window.location.reload()
@@ -172,13 +172,4 @@ class Login extends Component<TProps, ILoginComponentState> {
   }
 }
 
-function mapStateToProps (state: any) {
-  const { isLoggedIn } = state.AuthReducer
-  const { message } = state.MessageReducer
-  return {
-    isLoggedIn,
-    message
-  }
-}
-
-export default connect(mapStateToProps)(Login)
+export default connector(Login);

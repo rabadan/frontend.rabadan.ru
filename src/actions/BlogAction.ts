@@ -8,9 +8,10 @@ import {
   SET_MESSAGE,
 } from './Types';
 import BlogRequest from '../requests/BlogRequest';
+import {Dispatch} from "redux";
 
 export function getBlogs() {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch) => {
     dispatch({ type: GET_BLOGS });
 
     return BlogRequest.index()
@@ -27,7 +28,7 @@ export function getBlogs() {
 }
 
 export function getBlog(slug: string) {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch) => {
     dispatch({ type: GET_BLOG });
 
     return BlogRequest.show(slug)

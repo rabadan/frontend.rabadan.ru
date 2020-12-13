@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, SyntheticEvent} from 'react';
 // @ts-ignore
 import Form from 'react-validation/build/form';
 // @ts-ignore
@@ -8,10 +8,21 @@ import CheckButton from 'react-validation/build/button';
 // @ts-ignore
 import { isEmail } from 'validator';
 
-import { connect } from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import { register } from '../actions/AuthAction';
 import i18n from '../I18n';
 import {Redirect} from "react-router-dom";
+import {TRootState} from "../index";
+import { history } from '../helpers/History';
+
+const connector = connect(
+  ({ MessageReducer, AuthReducer }: TRootState) => ({
+    isLoggedIn: AuthReducer.isLoggedIn,
+    message: MessageReducer.message,
+  }),
+  { register },
+);
+type TRegisterProps = ConnectedProps<typeof connector>;
 
 const required = (value: string) => {
   if (!value) {
@@ -43,19 +54,12 @@ const vpassword = (value: string) => {
   }
 };
 
-type TRegisterComponentProps = {
-  dispatch: any,
-  history: any,
-  message: string,
-  preventDefault: any,
-  isLoggedIn: boolean
-}
 interface IRegisterComponentState { email: string, password: string, successful: boolean }
 
-class Register extends Component<TRegisterComponentProps, IRegisterComponentState> {
+class Register extends Component<TRegisterProps, IRegisterComponentState> {
   private checkBtn: CheckButton;
   private form: Form;
-  constructor(props: TRegisterComponentProps) {
+  constructor(props: TRegisterProps) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -80,10 +84,8 @@ class Register extends Component<TRegisterComponentProps, IRegisterComponentStat
     });
   }
 
-  handleRegister(e: TRegisterComponentProps) {
+  async handleRegister(e: SyntheticEvent) {
     e.preventDefault();
-
-    const { dispatch, history } = this.props
 
     this.setState({
       successful: false
@@ -92,7 +94,7 @@ class Register extends Component<TRegisterComponentProps, IRegisterComponentStat
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      dispatch(register(this.state.email, this.state.password))
+      await this.props.register(this.state.email, this.state.password)
         .then(() => {
           this.setState({
             successful: true
@@ -194,11 +196,4 @@ class Register extends Component<TRegisterComponentProps, IRegisterComponentStat
   }
 }
 
-function mapStateToProps(state: any) {
-  const { message } = state.MessageReducer;
-  return {
-    message
-  };
-}
-
-export default connect(mapStateToProps)(Register);
+export default connector(Register);

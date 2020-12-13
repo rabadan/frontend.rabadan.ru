@@ -30,7 +30,7 @@ const connector = connect(
   ({ AuthReducer }: TRootState) => ({
     user: AuthReducer.user
   }),
-  { },
+  { logout, clearMessage },
 );
 
 type TAppContainerProps = ConnectedProps<typeof connector>;
@@ -48,17 +48,13 @@ class App extends Component<TAppContainerProps, IAppState> {
 
     history.listen(() => {
       // this.props.dispatch(clearMessage()); - так было раньше
-
-      // @ts-ignore
-      this.props.dispatch(clearMessage())
+      this.props.clearMessage()
     });
   }
 
-  logOut() {
+  async logOut() {
     // this.props.dispatch(logout());  - так было раньше
-
-    // @ts-ignore
-    this.props.dispatch(logout());
+    await this.props.logout()
   }
 
   render() {
@@ -125,9 +121,4 @@ class App extends Component<TAppContainerProps, IAppState> {
   }
 }
 
-function mapStateToProps(state: any) {
-  const { user } = state.AuthReducer;
-  return { user };
-}
-
-export default connect(mapStateToProps)(App);
+export default connector(App);

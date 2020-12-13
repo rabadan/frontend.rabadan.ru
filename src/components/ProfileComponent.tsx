@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import {TUser} from "../interfaces/IUser";
+import {connect, ConnectedProps} from 'react-redux';
+import {TRootState} from "../index";
 
-type TProfileComponentProps = { user: TUser }
+const connector = connect(
+  ({ AuthReducer }: TRootState) => ({
+    user: AuthReducer.user,
+  }),
+  {},
+);
+type TProfileProps = ConnectedProps<typeof connector>;
 
-class Profile extends Component<TProfileComponentProps> {
+class Profile extends Component<TProfileProps> {
   render() {
     const { user: currentUser } = this.props;
 
@@ -25,11 +31,4 @@ class Profile extends Component<TProfileComponentProps> {
   }
 }
 
-function mapStateToProps(state: any) {
-  const { user } = state.AuthReducer;
-  return {
-    user
-  };
-}
-
-export default connect(mapStateToProps)(Profile);
+export default connector(Profile);
