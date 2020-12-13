@@ -8,8 +8,8 @@ import './App.css';
 import Login from './components/LoginComponent';
 import Register from './components/RegisterComponent';
 import Home from './components/HomeComponent';
-import Blog from './components/BlogComponent';
 import Profile from './components/ProfileComponent';
+import BlogList from "./components/blogs/BlogListComponent";
 
 import {logout} from './actions/AuthAction';
 import {clearMessage} from "./actions/MessageAction";
@@ -18,6 +18,7 @@ import { history } from './helpers/History';
 import i18n from './I18n';
 import {IUser} from "./interfaces/IUser";
 import {TRootState} from "./index";
+import BlogItem from "./components/blogs/BlogItemComponent";
 
 interface IAppState {
   showModeratorBoard?: boolean;
@@ -61,7 +62,6 @@ class App extends Component<TAppContainerProps, IAppState> {
   }
 
   render() {
-    console.log(this);
     const { user } = this.state;
 
     return (
@@ -73,7 +73,7 @@ class App extends Component<TAppContainerProps, IAppState> {
             </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link to={'/blog'} className="nav-link">
+                <Link to={'/blogs'} className="nav-link">
                   {i18n.t('blog.blog')}
                 </Link>
               </li>
@@ -115,7 +115,8 @@ class App extends Component<TAppContainerProps, IAppState> {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
-              <Route path="/blog" component={Blog} />
+              <Route exact path="/blogs" component={BlogList} />
+              <Route exact path="/blogs/:slug" component={BlogItem} />
             </Switch>
           </div>
         </div>

@@ -4,7 +4,7 @@ import {TErrorResponse} from "../interfaces/IError";
 
 const get = <TResponse>(url: string, params?: any) => {
   const client = HttpClientBuilder.fetchClient();
-
+  console.log('params', params);
   return client
     .get<{ data: TResponse; errors?: TErrorResponse }>(url, params)
     .then(response => {

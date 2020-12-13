@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "dotenv-webpack": "^5.0.0",
+    "react-time-format": "0.0.5",
     "redux-axios-middleware": "^4.0.1",
     "redux-devtools-extension": "^2.13.8"
   }
