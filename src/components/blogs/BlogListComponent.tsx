@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../../index";
 import {IBlog} from "../../interfaces/IBlog";
@@ -6,6 +6,7 @@ import {getBlogs} from "../../actions/BlogAction";
 // @ts-ignore
 import Time from 'react-time-format'
 import {Link} from "react-router-dom";
+import i18n from "../../I18n";
 
 
 const connector = connect(
@@ -17,40 +18,21 @@ const connector = connect(
 
 type TBlogListProps = ConnectedProps<typeof connector>;
 
-interface IBlogState {
-  h1: string,
-  body: string,
-  blogs: IBlog[]
-}
+const BlogListComponent: React.FC<TBlogListProps> = ({blogs, getBlogs}) => {
+  useEffect(() => {
+    getBlogs()
+  }, [getBlogs]);
 
-class BlogList extends Component<TBlogListProps, IBlogState> {
-  constructor(props: Readonly<TBlogListProps>) {
-    super(props);
-
-    this.state = {
-      h1: "Блог",
-      body: "",
-      blogs: []
-    };
-  }
-
-  async componentDidMount() {
-    await this.props.getBlogs()
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h1>{this.state.h1}</h1>
-          <p>{this.state.body}</p>
-        </header>
-        <div>
-          <BlogsRow blogs={this.props.blogs} />
-        </div>
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h1>{i18n.t('blog.title')}</h1>
+      </header>
+      <div>
+        <BlogsRow blogs={blogs} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 function BlogsRow(props: { blogs: IBlog[]; }) {
@@ -66,7 +48,7 @@ function BlogsRow(props: { blogs: IBlog[]; }) {
         </div>
         <p className="card-text mb-auto">{ blog.preview }</p>
         <Link to={`/blogs/${blog.slug}`} className="stretched-link">
-          Continue reading
+          {i18n.t('blog.continue_reading')}
         </Link>
       </div>
       <div className="col-auto d-none d-lg-block">
@@ -86,4 +68,4 @@ function BlogsRow(props: { blogs: IBlog[]; }) {
 }
 
 
-export default connector(BlogList);
+export default connector(BlogListComponent);

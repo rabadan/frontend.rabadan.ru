@@ -13,10 +13,15 @@
     "registered": "You have successfully registered"
   },
   "blog": {
-    "blog": "Blog"
+    "title": "Blog",
+    "continue_reading": "Continue reading"
   },
   "errors": {
     "email_not_valid": "This is not a valid email.",
-    "field_required": "This field is required!"
+    "field_required": "This field is required!",
+    "password_bad": "The password must be between 6 and 40 characters."
+  },
+  "actions": {
+    "loading": "Loading..."
   }
 }

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../../index";
 import {IBlog} from "../../interfaces/IBlog";
 import {getBlog} from "../../actions/BlogAction";
 // @ts-ignore
 import Time from 'react-time-format'
+import i18n from "../../I18n";
 
 const connector = connect(
   ({ BlogReducer }: TRootState, {match}: any) => ({
@@ -16,34 +17,18 @@ const connector = connect(
 
 type TBlogProps = ConnectedProps<typeof connector>;
 
-interface IBlogState {
-  h1: string,
-  blog?: IBlog
-}
+const BlogItemComponent: React.FC<TBlogProps> = ({blog, slug, getBlog}) => {
+  useEffect(() => {
+    getBlog(slug)
+  }, [slug, getBlog]);
 
-class BlogItem extends Component<TBlogProps, IBlogState> {
-  constructor(props: Readonly<TBlogProps>) {
-    super(props);
-
-    this.state = {
-      h1: "Блог",
-      blog: undefined
-    };
-  }
-
-  async componentDidMount() {
-    await this.props.getBlog(this.props.slug)
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <div>
-          <BlogPage blog={this.props.blog} />
-        </div>
+  return (
+    <div className="container">
+      <div>
+        <BlogPage blog={blog} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 function BlogPage(props: { blog?: IBlog; }) {
@@ -51,12 +36,12 @@ function BlogPage(props: { blog?: IBlog; }) {
   if (props.blog === undefined) {
     return (
       <div>
-        Loading...
+        {i18n.t('actions.loading')}
       </div>
     );
   }
   const blog = props.blog;
-  // Возвращаем список с именами пользователей
+
   return (
     <div>
       <div key={ blog.id } className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
@@ -83,4 +68,4 @@ function BlogPage(props: { blog?: IBlog; }) {
   );
 }
 
-export default connector(BlogItem);
+export default connector(BlogItemComponent);

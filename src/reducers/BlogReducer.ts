@@ -46,6 +46,7 @@ export default function (state = initialState, action: IReduxAction): IBlogReduc
     case GET_BLOG:
       return {
         ...state,
+        blog: undefined,
         apiLoading: true,
       };
     case GET_BLOG_SUCCESS:

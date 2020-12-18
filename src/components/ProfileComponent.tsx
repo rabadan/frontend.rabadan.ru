@@ -11,24 +11,20 @@ const connector = connect(
 );
 type TProfileProps = ConnectedProps<typeof connector>;
 
-class Profile extends Component<TProfileProps> {
-  render() {
-    const { user: currentUser } = this.props;
-
-    if (!currentUser) {
-      return <Redirect to="/login" />;
-    }
-
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>
-            <strong>Email:</strong> {currentUser.email}
-          </h3>
-        </header>
-      </div>
-    );
+const ProfileComponent: React.FC<TProfileProps> = ({user}) => {
+  if (!user) {
+    return <Redirect to="/login" />;
   }
+
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h3>
+          <strong>Email:</strong> {user.email}
+        </h3>
+      </header>
+    </div>
+  );
 }
 
-export default connector(Profile);
+export default connector(ProfileComponent);

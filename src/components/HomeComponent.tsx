@@ -1,43 +1,37 @@
-import React, { Component } from 'react';
-
-import UserRequest from '../requests/UserRequest';
+import React, {useEffect, useState} from 'react';
+import UserRequest from "../requests/UserRequest";
 import {TError} from "../interfaces/IError";
 
-type THomeComponentProps = {}
-interface IHomeComponentState { h1: string, body: string }
+interface IHomeComponentState {
+  h1: string,
+  body: string
+}
 
-export default class Home extends Component<THomeComponentProps, IHomeComponentState> {
-  constructor(props: Readonly<THomeComponentProps>) {
-    super(props);
+const HomeComponent: React.FC = () => {
+  const [h1, setH1] = useState<string>('');
+  const [body, setBody] = useState<string>('');
 
-    this.state = {
-      h1: '',
-      body: ''
-    }
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     UserRequest.index().then(
       (response: IHomeComponentState) => {
-        this.setState({
-          h1: response.h1,
-          body: response.body
-        });
+        setH1(response.h1)
+        setBody(response.body)
       },
       (error: TError) => {
-
+        setH1('ERROR')
+        setBody(error.description)
       }
-    );
-  }
+    )
+  }, []);
 
-  render() {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h1>{this.state.h1}</h1>
-          <p>{this.state.body}</p>
-        </header>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h1>{h1}</h1>
+        <p>{body}</p>
+      </header>
+    </div>
+  );
+};
+
+export default HomeComponent;

@@ -10,7 +10,6 @@ export interface IBlog {
   updated_at: string,
 }
 
-
 export type TBlog = {
   id: string,
   title: string,
