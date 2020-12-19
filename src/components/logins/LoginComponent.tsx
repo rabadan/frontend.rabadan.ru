@@ -7,13 +7,16 @@ import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
 // @ts-ignore
 import CheckButton from 'react-validation/build/button'
-import i18n from '../I18n'
+import i18n from '../../I18n'
 
 import {connect, ConnectedProps} from 'react-redux'
-import { login } from '../actions/AuthAction'
-import {TRootState} from "../index";
-import { history } from '../helpers/History';
+import { login } from '../../actions/AuthAction'
+import {TRootState} from "../../index";
+import { history } from '../../helpers/History';
+// @ts-ignore
+import InstagramLogin from 'react-instagram-login';
 
+const CLIENT_ID = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
 const connector = connect(
   ({ AuthReducer, MessageReducer }: TRootState) => ({
     isLoggedIn: AuthReducer.isLoggedIn,
@@ -137,8 +140,19 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login}) => 
           />
         </Form>
       </div>
+
+      <InstagramLogin
+        clientId={CLIENT_ID}
+        buttonText="Login"
+        onSuccess={responseInstagram}
+        onFailure={responseInstagram}
+      />
     </div>
   )
+}
+
+const responseInstagram = (response: any) => {
+  console.log(response);
 }
 
 export default connector(LoginComponent);

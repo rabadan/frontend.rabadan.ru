@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import HomeComponent from './components/HomeComponent';
-import LoginComponent from './components/LoginComponent';
+import LoginComponent from './components/logins/LoginComponent';
 import RegisterComponent from './components/RegisterComponent';
 import NavbarComponent from "./components/NavbarComponent";
 import ProfileComponent from "./components/ProfileComponent";
