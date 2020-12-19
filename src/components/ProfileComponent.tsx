@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {TRootState} from "../index";
@@ -20,8 +20,11 @@ const ProfileComponent: React.FC<TProfileProps> = ({user}) => {
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>Email:</strong> {user.email}
+          <strong>{user.name}</strong>
         </h3>
+        <h4>
+          <strong>Email:</strong> {user.email}
+        </h4>
       </header>
     </div>
   );

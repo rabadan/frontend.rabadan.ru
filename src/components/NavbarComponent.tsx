@@ -32,7 +32,7 @@ const NavbarComponent: React.FC<TNavbarContainerProps> = ({user, logout}) => {
         <div className="navbar-nav ml-auto">
           <li className="nav-item">
             <Link to={'/profile'} className="nav-link">
-              {user.email}
+              {user.name}
             </Link>
           </li>
           <li className="nav-item">
@@ -46,12 +46,6 @@ const NavbarComponent: React.FC<TNavbarContainerProps> = ({user, logout}) => {
           <li className="nav-item">
             <Link to={'/login'} className="nav-link">
               {i18n.t('auth.login')}
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to={'/register'} className="nav-link">
-              {i18n.t('auth.sign_up')}
             </Link>
           </li>
         </div>

@@ -2,7 +2,13 @@
   "home": "Главная",
   "auth": {
     "login": "Войти в систему",
+    "login_email": "Войти через email",
+    "login_facebook": "Войти через Facebook",
+    "login_vk": "Войти через Vkontakte",
+    "login_google": "Войти через Google",
+    "login_social_networks": "Вход через cоц-сети",
     "logout": "Выйти из системы",
+    "not_account": "Нет учетной записи?",
     "register_now": "Зарегистрироваться",
     "sign_up": "Регистрация",
     "profile": "Профиль",

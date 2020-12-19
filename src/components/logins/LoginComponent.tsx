@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react'
-import { Redirect } from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 // @ts-ignore
 import Form from 'react-validation/build/form'
@@ -10,19 +10,23 @@ import CheckButton from 'react-validation/build/button'
 import i18n from '../../I18n'
 
 import {connect, ConnectedProps} from 'react-redux'
-import { login } from '../../actions/AuthAction'
+import {login, login_with_facebook, login_with_google} from '../../actions/AuthAction'
 import {TRootState} from "../../index";
 import { history } from '../../helpers/History';
 // @ts-ignore
-import InstagramLogin from 'react-instagram-login';
+import FacebookLogin from 'react-facebook-login';
+import VkAuth from "./VkAuth";
+import GoogleLogin from 'react-google-login';
 
-const CLIENT_ID = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
+const FB_CLIENT_ID = process.env.REACT_APP_FACEBOOK_ID;
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 const connector = connect(
   ({ AuthReducer, MessageReducer }: TRootState) => ({
     isLoggedIn: AuthReducer.isLoggedIn,
     message: MessageReducer.message,
   }),
-  { login },
+  { login, login_with_facebook, login_with_google },
 );
 type TLoginProps = ConnectedProps<typeof connector>;
 
@@ -36,8 +40,7 @@ const required = (value: string) => {
   }
 }
 
-
-const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login}) => {
+const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, login_with_google, login_with_facebook}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,80 +82,109 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login}) => 
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <h3 className={'text-center mb-4'}>{i18n.t('auth.login')}</h3>
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
-        <Form ref={(c: Form) => { form = c }} onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="Email">Email</label>
-            <Input
-              type="text"
-              className="form-control"
-              name="email"
-              value={email}
-              onChange={onChangeEmail}
-              validations={[required]}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">
-              {i18n.t('auth.field.password')}
-            </label>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </div>
-
-          <div className="form-group">
-            <button
-              className="btn btn-primary btn-block"
-              disabled={loading}
-            >
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>{i18n.t('auth.login')}</span>
-            </button>
-          </div>
-
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton
-            style={{ display: 'none' }}
-            ref={(c: CheckButton) => { checkBtn = c }}
-          />
-        </Form>
+    <div className="row">
+      <div className="col-md-1">
       </div>
+      <div className="col-md-5">
+        <div className="card card-container">
+          <h3 className={'text-center mb-4'}>{i18n.t('auth.login_email')}</h3>
+          <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
 
-      <InstagramLogin
-        clientId={CLIENT_ID}
-        buttonText="Login"
-        onSuccess={responseInstagram}
-        onFailure={responseInstagram}
-      />
+          <Form ref={(c: Form) => { form = c }} onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="Email">Email</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="email"
+                value={email}
+                onChange={onChangeEmail}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">
+                {i18n.t('auth.field.password')}
+              </label>
+              <Input
+                type="password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+                validations={[required]}
+              />
+            </div>
+
+            <div className="form-group">
+              <button
+                className="btn btn-primary btn-block"
+                disabled={loading}
+              >
+                {loading && (
+                  <span className="spinner-border spinner-border-sm" />
+                )}
+                <span>{i18n.t('auth.login')}</span>
+              </button>
+            </div>
+
+            {message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
+              </div>
+            )}
+            <CheckButton
+              style={{ display: 'none' }}
+              ref={(c: CheckButton) => { checkBtn = c }}
+            />
+          </Form>
+
+          <hr />
+
+          <p>{i18n.t('auth.not_account')}</p>
+          <Link to={'/register'} className="btn btn-success">
+            {i18n.t('auth.sign_up')}
+          </Link>
+        </div>
+      </div>
+      <div className="col-md-5">
+        <div className="card card-container">
+          <h3 className={'text-center mb-4'}>{i18n.t('auth.login_social_networks')}</h3>
+
+          <FacebookLogin
+            appId={FB_CLIENT_ID}
+            autoLoad={false}
+            fields="name,email,picture"
+            cssClass="btn btn-primary btn-block"
+            icon="fa-facebook px-2"
+            textButton={i18n.t('auth.login_facebook')}
+            callback={login_with_facebook} />
+
+          <VkAuth />
+
+          <GoogleLogin
+            clientId={GOOGLE_CLIENT_ID as string}
+            className='mt-3'
+            buttonText={i18n.t('auth.login_google')}
+            onSuccess={login_with_google}
+            onFailure={responseGoogle}
+          />
+        </div>
+      </div>
     </div>
   )
 }
 
-const responseInstagram = (response: any) => {
-  console.log(response);
+
+const responseGoogle = (response: any) => {
+  console.log('responseGoogle', response);
 }
 
 export default connector(LoginComponent);

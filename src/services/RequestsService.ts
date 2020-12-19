@@ -7,6 +7,7 @@ const get = <TResponse>(url: string, params?: any) => {
   return client
     .get<{ data: TResponse; errors?: TErrorResponse }>(url, params)
     .then(response => {
+      console.log(response.data.data)
       return response.data.data;
     })
     .catch(error => {
@@ -20,6 +21,7 @@ const post = <TResponse>(url: string, params?: any) => {
   return client
     .post<{ data: TResponse; errors?: TErrorResponse }>(url, params)
     .then(response => {
+      console.log(response.data.data)
       return response.data.data;
     })
     .catch(error => {

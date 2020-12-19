@@ -2,7 +2,13 @@
   "home": "Home",
   "auth": {
     "login": "Sign in",
+    "login_email": "ign in with email",
+    "login_facebook": "Login with Facebook",
+    "login_vk": "Login with Vkontakte",
+    "login_google": "Login with Google",
+    "login_social_networks": "Login via Social Networks",
     "logout": "Logout",
+    "not_account": "Don't have an account?",
     "register_now": "Register now",
     "sign_up": "Регистрация",
     "profile": "Profile",
