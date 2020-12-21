@@ -10,7 +10,7 @@ import {
 } from './Types';
 import AuthRequest from '../requests/AuthRequest';
 import {Dispatch} from "redux";
-import {IOauthParams, TUserFacebookResponse, TUserGoogleResponse, TUserVkResponse} from "../interfaces/IUser";
+import {IOauthParams, TUserFacebookResponse, TUserVkResponse} from "../interfaces/IUser";
 import {GoogleLoginResponse, GoogleLoginResponseOffline} from "react-google-login";
 
 export const register = (email: string, password: string) => (dispatch: Dispatch) => {

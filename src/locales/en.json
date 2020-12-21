@@ -28,6 +28,7 @@
     "password_bad": "The password must be between 6 and 40 characters."
   },
   "actions": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "update": "Update"
   }
 }

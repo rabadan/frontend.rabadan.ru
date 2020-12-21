@@ -15,6 +15,7 @@ import BlogItemComponent from "./components/blogs/BlogItemComponent";
 
 import {clearMessage} from "./actions/MessageAction";
 import { history } from './helpers/History';
+import BlogFormComponent from "./components/blogs/BlogFormComponent";
 
 
 const connector = connect(
@@ -43,6 +44,7 @@ const App: React.FC<TAppContainerProps> = ({clearMessage}) => {
             <Route exact path="/profile" component={ProfileComponent} />
             <Route exact path="/blogs" component={BlogListComponent} />
             <Route exact path="/blogs/:slug" component={BlogItemComponent} />
+            <Route exact path="/blogs/edit/:slug" component={BlogFormComponent} />
           </Switch>
         </div>
       </div>

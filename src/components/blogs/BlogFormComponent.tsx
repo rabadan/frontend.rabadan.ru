@@ -6,7 +6,9 @@ import {getBlog} from "../../actions/BlogAction";
 // @ts-ignore
 import Time from 'react-time-format'
 import i18n from "../../I18n";
-import {Link} from "react-router-dom";
+import {N1ED} from "@edsdk/n1ed-react";
+
+const N1ED_API_KEY = process.env.REACT_APP_N1ED_API_KEY;
 
 const connector = connect(
   ({ BlogReducer }: TRootState, {match}: any) => ({
@@ -18,7 +20,7 @@ const connector = connect(
 
 type TBlogProps = ConnectedProps<typeof connector>;
 
-const BlogItemComponent: React.FC<TBlogProps> = ({blog, slug, getBlog}) => {
+const BlogFormComponent: React.FC<TBlogProps> = ({blog, slug, getBlog}) => {
   useEffect(() => {
     getBlog(slug)
   }, [slug, getBlog]);
@@ -63,13 +65,18 @@ function BlogPage(props: { blog?: IBlog; }) {
         </div>
       </div>
       <div className="mt-3 shadow border rounded bg-white p-3">
-        {blog.body}
+        <N1ED
+          apiKey={N1ED_API_KEY}
+          initialValue={blog.body}
+          onEditorChange={handleEditorChange}
+        />
       </div>
-      <Link to={`/blogs/edit/${blog.slug}`} className="stretched-link">
-        {i18n.t('actions.update')}
-      </Link>
     </div>
   );
 }
 
-export default connector(BlogItemComponent);
+const handleEditorChange = (response: any) => {
+  console.log('handleEditorChange', response);
+}
+
+export default connector(BlogFormComponent);
