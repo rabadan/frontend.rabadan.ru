@@ -43,4 +43,6 @@ async function sign_in_oauth(data: IOauthParams) {
     });
 }
 
-export default { sign_in, sign_up, sign_in_oauth };
+const requests = { sign_in, sign_up, sign_in_oauth };
+
+export default requests

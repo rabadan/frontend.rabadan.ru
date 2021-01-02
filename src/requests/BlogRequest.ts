@@ -1,7 +1,7 @@
 import authHeader from '../services/AuthHeader';
 import RequestsService from "../services/RequestsService";
 import {TError} from "../interfaces/IError";
-import {TBlogResponse} from "../interfaces/IBlog";
+import {IBlog, TBlogResponse} from "../interfaces/IBlog";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -31,4 +31,17 @@ async function show(slug: string) {
     });
 }
 
-export default { index, show }
+async function put(blog: IBlog, formData: FormData) {
+  const url = `${API_URL}api/v1/blogs/${blog.slug}`
+  const headers = {headers: authHeader()};
+  return RequestsService.put<TBlogResponse>(url, formData, headers)
+    .then((response: any) => {
+      return response;
+    })
+    .catch((error: TError) => {
+      throw error;
+    });
+}
+
+const requests = { index, show, put };
+export default requests

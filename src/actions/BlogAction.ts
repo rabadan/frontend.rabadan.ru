@@ -5,10 +5,14 @@ import {
   GET_BLOG,
   GET_BLOG_SUCCESS,
   GET_BLOG_FAIL,
-  SET_MESSAGE,
+  SET_BLOG,
+  SET_BLOG_SUCCESS,
+  SET_BLOG_FAIL,
+  SET_MESSAGE, USER_LOGOUT,
 } from './Types';
 import BlogRequest from '../requests/BlogRequest';
 import {Dispatch} from "redux";
+import {IBlog} from "../interfaces/IBlog";
 
 export function getBlogs() {
   return (dispatch: Dispatch) => {
@@ -43,3 +47,28 @@ export function getBlog(slug: string) {
       });
   };
 }
+
+
+export function setBlog(blog: IBlog, formData: FormData) {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: SET_BLOG });
+
+    return BlogRequest.put(blog, formData)
+      .then(response => {
+        dispatch({type: SET_BLOG_SUCCESS, payload: { data: response }});
+        return Promise.resolve();
+      })
+      .catch(error => {
+        dispatch({ type: SET_BLOG_FAIL });
+        dispatch({ type: SET_MESSAGE, payload: error.description });
+
+        if (error.code === 401) {
+          localStorage.removeItem('user');
+          dispatch({ type: USER_LOGOUT });
+        }
+
+        return Promise.reject();
+      });
+  };
+}
+

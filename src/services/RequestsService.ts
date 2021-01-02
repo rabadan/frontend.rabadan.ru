@@ -7,7 +7,6 @@ const get = <TResponse>(url: string, params?: any) => {
   return client
     .get<{ data: TResponse; errors?: TErrorResponse }>(url, params)
     .then(response => {
-      console.log(response.data.data)
       return response.data.data;
     })
     .catch(error => {
@@ -21,7 +20,19 @@ const post = <TResponse>(url: string, params?: any) => {
   return client
     .post<{ data: TResponse; errors?: TErrorResponse }>(url, params)
     .then(response => {
-      console.log(response.data.data)
+      return response.data.data;
+    })
+    .catch(error => {
+      throw Error.parseResponse(error);
+    });
+};
+
+const put = <TResponse>(url: string, params?: any, config?: any) => {
+  const client = HttpClientBuilder.fetchClient();
+
+  return client
+    .put<{ data: TResponse; errors?: TErrorResponse }>(url, params, config)
+    .then(response => {
       return response.data.data;
     })
     .catch(error => {
@@ -31,6 +42,7 @@ const post = <TResponse>(url: string, params?: any) => {
 
 const list = {
   get,
-  post
+  post,
+  put
 };
 export default list;

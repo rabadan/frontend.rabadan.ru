@@ -36,7 +36,6 @@ export const login = (email: string, password: string) => (dispatch: Dispatch) =
   return AuthRequest.sign_in(email, password).then(
     (data) => {
       dispatch({ type: USER_LOGIN_SUCCESS, payload: { data: data } });
-      console.log('login', data)
       localStorage.setItem('user', JSON.stringify(data));
       return Promise.resolve();
     },
@@ -83,7 +82,6 @@ export const login_with_vk = (response: TUserVkResponse, user_id?: string) => {
     return login_break('Close auth');
   }
 
-  console.log('login_with_vk / response', response)
   const data:IOauthParams = {
     service: "vk",
     service_id: response.session.user.id,
@@ -103,10 +101,8 @@ export const login_break = (message: string) => (dispatch: Dispatch) => {
 
 export const login_oauth = (oauth_data:IOauthParams) => (dispatch: Dispatch) => {
   dispatch({ type: USER_LOGIN });
-  console.log('login_oauth / oauth_data', oauth_data)
   return AuthRequest.sign_in_oauth(oauth_data).then(
     (data) => {
-      console.log('login_oauth', data)
       dispatch({ type: USER_LOGIN_SUCCESS, payload: { data: data } });
       localStorage.setItem('user', JSON.stringify(data));
       return Promise.resolve();

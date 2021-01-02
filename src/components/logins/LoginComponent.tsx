@@ -174,7 +174,7 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, logi
             className='mt-3'
             buttonText={i18n.t('auth.login_google')}
             onSuccess={login_with_google}
-            onFailure={responseGoogle}
+            onFailure={responseFailureGoogle}
           />
         </div>
       </div>
@@ -183,8 +183,8 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, logi
 }
 
 
-const responseGoogle = (response: any) => {
-  console.log('responseGoogle', response);
+const responseFailureGoogle = (response: any) => {
+  console.log('responseFailureGoogle', response);
 }
 
 export default connector(LoginComponent);

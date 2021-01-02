@@ -23,12 +23,13 @@ async function show() {
 
   return RequestsService.get<any>(url, params)
     .then((response: any) => {
-      return new response;
+      return new response();
     })
     .catch((error: TError) => {
       throw error;
     });
 }
 
+const requests = { index, show };
 
-export default { index, show };
+export default requests;

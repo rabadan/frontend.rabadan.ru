@@ -5,6 +5,10 @@ import {
   GET_BLOG,
   GET_BLOG_SUCCESS,
   GET_BLOG_FAIL,
+  SET_BLOG,
+  SET_BLOG_SUCCESS,
+  SET_BLOG_FAIL,
+  CHANGE_BLOG,
 } from '../actions/Types';
 
 import {IReduxAction} from "../interfaces/IReduxAction";
@@ -23,6 +27,7 @@ const initialState: IBlogReducer = {
   blogs: []
 }
 
+// eslint-disable-next-line
 export default function (state = initialState, action: IReduxAction): IBlogReducer {
   const { type, payload } = action;
 
@@ -56,6 +61,27 @@ export default function (state = initialState, action: IReduxAction): IBlogReduc
         blog: payload.data
       };
     case GET_BLOG_FAIL:
+      return {
+        ...state,
+        apiLoading: false
+      };
+    case CHANGE_BLOG:
+      return {
+        ...state,
+        blog: payload.data
+      };
+    case SET_BLOG:
+      return {
+        ...state,
+        apiLoading: true,
+      };
+    case SET_BLOG_SUCCESS:
+      return {
+        ...state,
+        apiLoading: false,
+        blog: payload.data
+      };
+    case SET_BLOG_FAIL:
       return {
         ...state,
         apiLoading: false

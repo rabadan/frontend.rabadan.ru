@@ -25,6 +25,7 @@ const initialState: IAuthReducer = {
   user: (user ? user : undefined)
 }
 
+// eslint-disable-next-line
 export default function (state = initialState, action: IReduxAction<any>): IAuthReducer {
   const { type, payload } = action;
 
