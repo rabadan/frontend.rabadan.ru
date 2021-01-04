@@ -1,4 +1,4 @@
-interface IAttachment {
+export interface IAttachment {
   title: string,
   value: string
 }
@@ -10,6 +10,7 @@ export interface IBlog {
   preview: string,
   body: string,
   image?: string,
+  imageTag?: JSX.Element,
   attachments?: IAttachment[],
   user_id: string,
   created_at: string,

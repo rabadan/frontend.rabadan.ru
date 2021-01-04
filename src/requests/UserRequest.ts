@@ -1,14 +1,14 @@
-import authHeader from '../services/AuthHeader';
 import RequestsService from "../services/RequestsService";
 import {TError} from "../interfaces/IError";
+import {TUser} from "../interfaces/IUser";
+import User from "../entities/User";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 async function index() {
   const url = `${API_URL}api/v1/home/index`;
-  const params = { headers: authHeader() };
 
-  return RequestsService.get<any>(url, params)
+  return RequestsService.get<any>(url)
     .then((response: any) => {
       return response;
     })
@@ -17,19 +17,18 @@ async function index() {
     });
 }
 
-async function show() {
-  const url = `${API_URL}api/v1/users/show`;
-  const params = { headers: authHeader() };
+async function profile() {
+  const url = `${API_URL}api/v1/profile`;
 
-  return RequestsService.get<any>(url, params)
-    .then((response: any) => {
-      return new response();
+  return RequestsService.get<{user:TUser}>(url)
+    .then((response: {user:TUser}) => {
+      return new User(response.user);
     })
     .catch((error: TError) => {
       throw error;
     });
 }
 
-const requests = { index, show };
+const requests = { index, profile };
 
 export default requests;

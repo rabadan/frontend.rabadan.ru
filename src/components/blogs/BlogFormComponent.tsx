@@ -7,7 +7,6 @@ import Time from 'react-time-format'
 import i18n from "../../I18n";
 import { Editor } from '@tinymce/tinymce-react';
 import { upload_handler } from '../../requests/FileRequest';
-import {history} from "../../helpers/History";
 
 const TINY_API_KEY = process.env.REACT_APP_TINY_API_KEY;
 
@@ -30,9 +29,8 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
   const [image, setImage] = useState('');
   const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(null);
 
-  useEffect(() => {
-    getBlog(slug)
-  }, []);
+  // eslint-disable-next-line
+  useEffect(() => {getBlog(slug)}, []);
 
   useEffect(() => {
     setTitle(blog === undefined ? '' : blog.title)
@@ -41,8 +39,7 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
   }, [blog]);
 
   if (user === undefined) {
-    history.push('/profile')
-    window.location.reload()
+    window.location.assign('/login')
   }
 
   if (blog === undefined) {
@@ -67,9 +64,7 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
     }
 
     setBlog(blog, formData).then(response => {
-        console.log('OK setBlog(blog, formData)')
-        history.push(`/blogs/${blog.slug}`)
-        window.location.reload();
+        window.location.assign(`/blogs/${blog.slug}`)
       }).catch(error => {
         console.log('ERROR setBlog(blog, formData)', error)
       });
@@ -96,26 +91,14 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
       setImagePreview(reader.result)
     }
 
-    console.log(image)
     reader.readAsDataURL(file)
   }
 
-  console.log('render', new Date())
-
-  let $imagePreview = null;
+  let $imagePreview;
   if (imagePreview) {
-    // @ts-ignore
-    $imagePreview = (<img className='w-100' src={imagePreview} alt='Preview' />);
+    $imagePreview = (<img src={imagePreview as string} className='w-100' alt='Preview' />);
   } else {
-    $imagePreview = (
-      <svg className="bd-placeholder-img text-center" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#55595c"></rect>
-        <text x="10%" y="40%" fill="#eceeef" dy=".3em">Please select an Image</text>
-        <text x="33%" y="50%" fill="#eceeef" dy=".3em">for Preview</text>
-      </svg>
-    );
+    $imagePreview = blog.imageTag
   }
 
   let alert = (<span />);

@@ -19,8 +19,8 @@ export function getBlogs() {
     dispatch({ type: GET_BLOGS });
 
     return BlogRequest.index()
-      .then(response => {
-        dispatch({type: GET_BLOGS_SUCCESS, payload: { data: response }});
+      .then(blogs => {
+        dispatch({type: GET_BLOGS_SUCCESS, payload: { data: blogs }});
         return Promise.resolve();
       })
       .catch(error => {
@@ -36,8 +36,8 @@ export function getBlog(slug: string) {
     dispatch({ type: GET_BLOG });
 
     return BlogRequest.show(slug)
-      .then(response => {
-        dispatch({type: GET_BLOG_SUCCESS, payload: { data: response }});
+      .then(blog => {
+        dispatch({type: GET_BLOG_SUCCESS, payload: { data: blog }});
         return Promise.resolve();
       })
       .catch(error => {

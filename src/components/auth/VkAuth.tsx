@@ -17,7 +17,6 @@ const VkAuth: React.FC<TLoginProps> = ({login_with_vk}) => {
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
     useEffect(() => {
-        // @ts-ignore
         if (!document.getElementById('vk-sdk')) {
           setIsLoaded(true);
         }

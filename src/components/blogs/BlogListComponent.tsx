@@ -8,7 +8,6 @@ import Time from 'react-time-format'
 import {Link} from "react-router-dom";
 import i18n from "../../I18n";
 
-
 const connector = connect(
   ({ BlogReducer }: TRootState) => ({
     blogs: BlogReducer.blogs,
@@ -52,12 +51,7 @@ function BlogsRow(props: { blogs: IBlog[]; }) {
         </Link>
       </div>
       <div className="col-auto d-none d-lg-block">
-        <svg className="bd-placeholder-img text-center" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-             preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#55595c"></rect>
-          <text x="33%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-        </svg>
+        {blog.imageTag}
       </div>
     </div>
   );

@@ -1,31 +1,29 @@
 import React  from 'react';
 import { connect, ConnectedProps } from "react-redux";
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import HomeComponent from './components/HomeComponent';
-import LoginComponent from './components/logins/LoginComponent';
-import RegisterComponent from './components/RegisterComponent';
 import NavbarComponent from "./components/NavbarComponent";
-import ProfileComponent from "./components/ProfileComponent";
-import BlogListComponent from "./components/blogs/BlogListComponent";
-import BlogItemComponent from "./components/blogs/BlogItemComponent";
+import RoutesComponent from "./components/RoutesComponent";
 
 import {clearMessage} from "./actions/MessageAction";
+import {setCurrentUser} from "./actions/UserAction";
 import { history } from './helpers/History';
-import BlogFormComponent from "./components/blogs/BlogFormComponent";
-
+import setAuthorizationToken from "./services/setAuthorizationToken";
 
 const connector = connect(
   () => ({}),
-  { clearMessage },
+  { clearMessage, setCurrentUser },
 );
 
 type TAppContainerProps = ConnectedProps<typeof connector>;
 
-const App: React.FC<TAppContainerProps> = ({clearMessage}) => {
+const App: React.FC<TAppContainerProps> = ({clearMessage, setCurrentUser}) => {
+  if (localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken)
+    setCurrentUser();
+  }
 
   history.listen(() => {
     clearMessage()
@@ -35,18 +33,7 @@ const App: React.FC<TAppContainerProps> = ({clearMessage}) => {
     <Router history={history}>
       <div>
         <NavbarComponent />
-
-        <div className="container mt-3">
-          <Switch>
-            <Route exact path={'/'} component={HomeComponent} />
-            <Route exact path="/login" component={LoginComponent} />
-            <Route exact path="/register" component={RegisterComponent} />
-            <Route exact path="/profile" component={ProfileComponent} />
-            <Route exact path="/blogs" component={BlogListComponent} />
-            <Route exact path="/blogs/:slug" component={BlogItemComponent} />
-            <Route exact path="/blogs/edit/:slug" component={BlogFormComponent} />
-          </Switch>
-        </div>
+        <RoutesComponent />
       </div>
     </Router>
   );

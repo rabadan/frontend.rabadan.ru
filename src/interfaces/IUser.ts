@@ -1,22 +1,20 @@
+export type TAuthResponse = {
+  jwt: string;
+}
+
 export interface IUser {
-  id: string;
   name: string;
   email: string;
-  accessToken: string;
 }
 
 export type TUser = {
-  id: string;
   name: string;
   email: string;
-  accessToken: string;
 }
 
 export interface TUserResponse {
-  id: string;
   name: string;
   email: string;
-  accessToken: string;
 }
 
 export interface IOauthParams {

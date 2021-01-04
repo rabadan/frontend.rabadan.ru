@@ -43,21 +43,6 @@ function BlogPage(props: { blog?: IBlog; }) {
   }
   const blog = props.blog;
 
-  let $image = null;
-  if (blog.image) {
-    // @ts-ignore
-    $image = (<img className='w-100' src={blog.image} alt='Preview' />);
-  } else {
-    $image = (
-      <svg className="bd-placeholder-img text-center" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-           preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#55595c"></rect>
-        <text x="33%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-      </svg>
-    );
-  }
-
   return (
     <div>
       <div key={ blog.id } className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative">
@@ -69,13 +54,13 @@ function BlogPage(props: { blog?: IBlog; }) {
           <p className="card-text mb-auto">{ blog.preview }</p>
         </div>
         <div className="col-auto d-none d-lg-block">
-          {$image}
+          {blog.imageTag}
         </div>
       </div>
       <div className="mt-3 shadow border rounded bg-white p-3">
         <div dangerouslySetInnerHTML={{__html: blog.body}} />
       </div>
-      <Link to={`/blogs/edit/${blog.slug}`} className="stretched-link">
+      <Link to={`/blogs/edit/${blog.slug}`}>
         {i18n.t('actions.update')}
       </Link>
     </div>

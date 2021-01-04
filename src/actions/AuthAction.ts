@@ -13,13 +13,13 @@ import {Dispatch} from "redux";
 import {IOauthParams, TUserFacebookResponse, TUserVkResponse} from "../interfaces/IUser";
 import {GoogleLoginResponse, GoogleLoginResponseOffline} from "react-google-login";
 
-export const register = (email: string, password: string) => (dispatch: Dispatch) => {
+export const register = (name: string, email: string, password: string) => (dispatch: Dispatch) => {
   dispatch({ type: USER_REGISTER });
 
-  return AuthRequest.sign_up(email, password).then(
-    (data) => {
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: { data: data } });
-      localStorage.setItem('user', JSON.stringify(data));
+  return AuthRequest.sign_up(name, email, password).then(
+    (jwtToken) => {
+      localStorage.setItem('jwtToken', jwtToken);
+      dispatch({ type: USER_REGISTER_SUCCESS });
       return Promise.resolve();
     },
     (error) => {
@@ -34,9 +34,9 @@ export const login = (email: string, password: string) => (dispatch: Dispatch) =
   dispatch({ type: USER_LOGIN });
 
   return AuthRequest.sign_in(email, password).then(
-    (data) => {
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: { data: data } });
-      localStorage.setItem('user', JSON.stringify(data));
+    (jwtToken) => {
+      localStorage.setItem('jwtToken', jwtToken);
+      dispatch({ type: USER_LOGIN_SUCCESS });
       return Promise.resolve();
     },
     (error) => {
@@ -102,9 +102,10 @@ export const login_break = (message: string) => (dispatch: Dispatch) => {
 export const login_oauth = (oauth_data:IOauthParams) => (dispatch: Dispatch) => {
   dispatch({ type: USER_LOGIN });
   return AuthRequest.sign_in_oauth(oauth_data).then(
-    (data) => {
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: { data: data } });
-      localStorage.setItem('user', JSON.stringify(data));
+    (jwtToken) => {
+      localStorage.setItem('jwtToken', jwtToken);
+      dispatch({ type: USER_LOGIN_SUCCESS });
+      window.location.assign('/profile')
       return Promise.resolve();
     },
     (error) => {
@@ -116,10 +117,9 @@ export const login_oauth = (oauth_data:IOauthParams) => (dispatch: Dispatch) => 
   );
 };
 
-
 export function logout() {
   return (dispatch: Dispatch) => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('jwtToken');
     dispatch({ type: USER_LOGOUT });
     return Promise.resolve();
   };

@@ -1,30 +1,29 @@
 import RequestsService from '../services/RequestsService';
-import User from "../entities/User";
 import {TError} from "../interfaces/IError";
-import {IOauthParams, TUserResponse} from "../interfaces/IUser";
+import {IOauthParams, TAuthResponse} from "../interfaces/IUser";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 async function sign_in(email: string, password: string) {
-  const url = `${API_URL}signin`;
-  const params = { email, password };
+  const url = `${API_URL}api/v1/login`;
+  const params = { 'user': { email, password }};
 
-  return RequestsService.post<TUserResponse>(url, params)
-    .then((response: TUserResponse) => {
-      return new User(response);
+  return RequestsService.post<TAuthResponse>(url, params)
+    .then((response: TAuthResponse) => {
+      return response.jwt
     })
     .catch((error: TError) => {
       throw error;
     });
 }
 
-async function sign_up(email: string, password: string) {
-  const url = `${API_URL}signup`;
-  const params = { email, password };
+async function sign_up(name: string, email: string, password: string) {
+  const url = `${API_URL}api/v1/users`;
+  const params = { 'user': { name, email, password }};
 
-  return RequestsService.post<TUserResponse>(url, params)
-    .then((response: TUserResponse) => {
-      return new User(response);
+  return RequestsService.post<TAuthResponse>(url, params)
+    .then((response: TAuthResponse) => {
+      return response.jwt
     })
     .catch((error: TError) => {
       throw error;
@@ -32,11 +31,11 @@ async function sign_up(email: string, password: string) {
 }
 
 async function sign_in_oauth(data: IOauthParams) {
-  const url = `${API_URL}signin_oauth`;
+  const url = `${API_URL}/api/v1/login_oauth`;
 
-  return RequestsService.post<TUserResponse>(url, data)
-    .then((response: TUserResponse) => {
-      return new User(response);
+  return RequestsService.post<TAuthResponse>(url, data)
+    .then((response: TAuthResponse) => {
+      return response.jwt
     })
     .catch((error: TError) => {
       throw error;

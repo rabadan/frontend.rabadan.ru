@@ -9,14 +9,15 @@ import CheckButton from 'react-validation/build/button';
 import { isEmail } from 'validator';
 
 import {connect, ConnectedProps} from 'react-redux';
-import { register } from '../actions/AuthAction';
-import i18n from '../I18n';
+import { register } from '../../actions/AuthAction';
+import i18n from '../../I18n';
 import {Redirect} from "react-router-dom";
-import {TRootState} from "../index";
-import { history } from '../helpers/History';
+import {TRootState} from "../../index";
+import setAuthorizationToken from "../../services/setAuthorizationToken";
 
 const connector = connect(
   ({ MessageReducer, AuthReducer }: TRootState) => ({
+    apiLoading: AuthReducer.apiLoading,
     isLoggedIn: AuthReducer.isLoggedIn,
     message: MessageReducer.message,
   }),
@@ -54,7 +55,8 @@ const vpassword = (value: string) => {
   }
 };
 
-const RegisterComponent: React.FC<TRegisterProps> = ({message, isLoggedIn, register}) => {
+const RegisterComponent: React.FC<TRegisterProps> = ({message, apiLoading, isLoggedIn, register}) => {
+  const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [successful, setSuccessful] = useState<boolean>(false);
@@ -74,16 +76,21 @@ const RegisterComponent: React.FC<TRegisterProps> = ({message, isLoggedIn, regis
     form.validateAll();
 
     if (checkBtn.context._errors.length === 0) {
-      register(email, password)
+      register(name, email, password)
         .then(() => {
           setSuccessful(true)
-          history.push('/profile')
-          window.location.reload()
+          setAuthorizationToken(localStorage.jwtToken)
+          window.location.assign('/profile')
         })
         .catch(() => {
           setSuccessful(false)
         });
     }
+  };
+
+
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +114,18 @@ const RegisterComponent: React.FC<TRegisterProps> = ({message, isLoggedIn, regis
         <Form onSubmit={handleSubmit} ref={(c: Form) => { form = c }}>
           {!successful && (
             <div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  value={name}
+                  onChange={onChangeName}
+                  validations={[required]}
+                />
+              </div>
+
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input
@@ -134,8 +153,12 @@ const RegisterComponent: React.FC<TRegisterProps> = ({message, isLoggedIn, regis
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">
-                  {i18n.t('auth.register_now')}
+                <button className="btn btn-primary btn-block"
+                        disabled={apiLoading}>
+                  {apiLoading && (
+                    <span className="spinner-border spinner-border-sm" />
+                  )}
+                  <span>{i18n.t('auth.register_now')}</span>
                 </button>
               </div>
             </div>

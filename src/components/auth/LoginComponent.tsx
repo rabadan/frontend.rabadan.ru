@@ -12,17 +12,18 @@ import i18n from '../../I18n'
 import {connect, ConnectedProps} from 'react-redux'
 import {login, login_with_facebook, login_with_google} from '../../actions/AuthAction'
 import {TRootState} from "../../index";
-import { history } from '../../helpers/History';
 // @ts-ignore
 import FacebookLogin from 'react-facebook-login';
 import VkAuth from "./VkAuth";
 import GoogleLogin from 'react-google-login';
+import setAuthorizationToken from "../../services/setAuthorizationToken";
 
 const FB_CLIENT_ID = process.env.REACT_APP_FACEBOOK_ID;
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const connector = connect(
   ({ AuthReducer, MessageReducer }: TRootState) => ({
+    apiLoading: AuthReducer.apiLoading,
     isLoggedIn: AuthReducer.isLoggedIn,
     message: MessageReducer.message,
   }),
@@ -40,10 +41,9 @@ const required = (value: string) => {
   }
 }
 
-const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, login_with_google, login_with_facebook}) => {
+const LoginComponent: React.FC<TLoginProps> = ({message, apiLoading, isLoggedIn, login, login_with_google, login_with_facebook}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
 
   if (isLoggedIn) {
     return <Redirect to="/profile"/>
@@ -55,21 +55,14 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, logi
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    setLoading(true)
-
     form.validateAll()
 
     if (checkBtn.context._errors.length === 0) {
       login(email, password)
         .then(() => {
-          history.push('/profile')
-          window.location.reload()
+          setAuthorizationToken(localStorage.jwtToken)
+          window.location.assign('/profile')
         })
-        .catch(() => {
-          setLoading(false)
-        })
-    } else {
-      setLoading(false)
     }
   };
 
@@ -124,9 +117,9 @@ const LoginComponent: React.FC<TLoginProps> = ({message, isLoggedIn, login, logi
             <div className="form-group">
               <button
                 className="btn btn-primary btn-block"
-                disabled={loading}
+                disabled={apiLoading}
               >
-                {loading && (
+                {apiLoading && (
                   <span className="spinner-border spinner-border-sm" />
                 )}
                 <span>{i18n.t('auth.login')}</span>

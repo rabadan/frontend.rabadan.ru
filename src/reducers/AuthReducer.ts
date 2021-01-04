@@ -5,6 +5,7 @@ import {
   USER_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
+  SET_USER,
   USER_LOGOUT
 } from '../actions/Types';
 
@@ -17,12 +18,10 @@ interface IAuthReducer {
   user?: IUser
 }
 
-const user = JSON.parse(localStorage.getItem('user') as string);
-
 const initialState: IAuthReducer = {
   apiLoading: false,
-  isLoggedIn: !!user,
-  user: (user ? user : undefined)
+  isLoggedIn: false,
+  user: undefined
 }
 
 // eslint-disable-next-line
@@ -39,15 +38,15 @@ export default function (state = initialState, action: IReduxAction<any>): IAuth
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        apiLoading: false,
-        isLoggedIn: true,
-        user: payload.data
+        apiLoading: true,
+        isLoggedIn: false,
       };
     case USER_REGISTER_FAIL:
       return {
         ...state,
         apiLoading: false,
-        isLoggedIn: false
+        isLoggedIn: false,
+        user: undefined
       };
     case USER_LOGIN:
       return {
@@ -56,6 +55,12 @@ export default function (state = initialState, action: IReduxAction<any>): IAuth
         isLoggedIn: false
       };
     case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        apiLoading: true,
+        isLoggedIn: false
+      };
+    case SET_USER:
       return {
         ...state,
         apiLoading: false,
