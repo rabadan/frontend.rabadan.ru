@@ -3,10 +3,12 @@ import {IUser, TUserResponse} from '../interfaces/IUser';
 export default class User implements IUser {
   private readonly _name: string;
   private readonly _email: string;
+  private readonly _role: string;
 
   constructor(user: TUserResponse) {;
     this._name = user.name;
     this._email = user.email;
+    this._role = user.role;
   }
 
   get name(): string {
@@ -15,6 +17,10 @@ export default class User implements IUser {
 
   get email(): string {
     return this._email;
+  }
+
+  get is_admin(): boolean {
+    return this._role === "role_admin";
   }
 
   toJSON(): Partial<User> {

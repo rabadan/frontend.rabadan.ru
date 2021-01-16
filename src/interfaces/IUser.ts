@@ -5,16 +5,19 @@ export type TAuthResponse = {
 export interface IUser {
   name: string;
   email: string;
+  is_admin: boolean;
 }
 
 export type TUser = {
   name: string;
   email: string;
+  role: string;
 }
 
 export interface TUserResponse {
   name: string;
   email: string;
+  role: string;
 }
 
 export interface IOauthParams {

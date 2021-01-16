@@ -9,6 +9,7 @@ export default class Blog implements IBlog {
   private readonly _slug: string;
   private readonly _body: string;
   private readonly _image?: string;
+  private readonly _image_crop?: string;
   private readonly _attachments: IAttachment[] | undefined;
   private readonly _created_at: string;
   private readonly _updated_at: string;
@@ -21,6 +22,7 @@ export default class Blog implements IBlog {
     this._slug = blog.slug;
     this._body = blog.body;
     this._image = blog.image;
+    this._image_crop = blog.image_crop;
     this._attachments = blog.attachments;
     this._created_at = blog.created_at;
     this._updated_at = blog.updated_at;
@@ -28,15 +30,21 @@ export default class Blog implements IBlog {
 
   get imageTag(): JSX.Element {
     let img:JSX.Element;
-    if (this._image) {
-      img = (<img className='w-100' src={this._image} alt='Preview' />);
+    if (this._image_crop) {
+      img = (<img className='w-100' src={this._image_crop} alt={this._title} />);
     } else {
       img = (
-        <svg className="bd-placeholder-img text-center" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+        <svg className="bd-placeholder-img text-center"
+             width="360"
+             height="200"
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMid slice"
+             focusable="false"
+             role="img"
+             aria-label="Placeholder: Thumbnail">
           <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#55595c"></rect>
-          <text x="33%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+          <rect width="100%" height="100%" fill="#55595c" />
+          <text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
         </svg>);
     }
 
@@ -57,6 +65,14 @@ export default class Blog implements IBlog {
 
   get preview(): string {
     return this._preview;
+  }
+
+  get image(): string | undefined {
+    return this._image;
+  }
+
+  get image_crop(): string | undefined {
+    return this._image_crop;
   }
 
   get slug(): string {

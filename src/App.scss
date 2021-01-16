@@ -1,3 +1,19 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+//@import "static/plugin/et-line/style";
+//@import "static/plugin/themify-icons/themify-icons";
+//@import "static/plugin/owl-carousel/css/owl.carousel";
+//@import "static/plugin/magnific/magnific-popup";
+//@import "static/plugin/ytplayer/css/jquery.mb.YTPlayer.min";
+//@import "static/plugin/scroll/jquery.mCustomScrollbar";
+@import "static/style/master";
+
+html, body, #root {
+  height: 100%;
+  min-height: 100%;
+}
+
 label {
   display: block;
   margin-top: 10px;

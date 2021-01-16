@@ -6,11 +6,13 @@ import reduxAxiosMiddleware from "redux-axios-middleware";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import HttpClientBuilder from "./services/HttpClientBuilder";
+import ConfigurationReducer from "./reducers/ConfigurationReducer";
 
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
-  MessageReducer
+  MessageReducer,
+  ConfigurationReducer
 });
 
 const axiosMiddleware = reduxAxiosMiddleware(HttpClientBuilder.fetchClient());

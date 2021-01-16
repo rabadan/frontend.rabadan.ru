@@ -14,11 +14,11 @@ import BlogRequest from '../requests/BlogRequest';
 import {Dispatch} from "redux";
 import {IBlog} from "../interfaces/IBlog";
 
-export function getBlogs() {
+export function getBlogs(page:number = 1) {
   return (dispatch: Dispatch) => {
     dispatch({ type: GET_BLOGS });
 
-    return BlogRequest.index()
+    return BlogRequest.index(page)
       .then(blogs => {
         dispatch({type: GET_BLOGS_SUCCESS, payload: { data: blogs }});
         return Promise.resolve();

@@ -17,6 +17,8 @@ import {IBlog} from "../interfaces/IBlog";
 
 interface IBlogReducer {
   apiLoading: boolean,
+  page?: number,
+  total_pages?: number,
   blog?: IBlog,
   blogs: IBlog[]
 }
@@ -35,18 +37,21 @@ export default function (state = initialState, action: IReduxAction): IBlogReduc
     case GET_BLOGS:
       return {
         ...state,
+        blogs: [],
         apiLoading: true,
       };
     case GET_BLOGS_SUCCESS:
       return {
         ...state,
         apiLoading: false,
-        blogs: payload.data
+        blogs: payload.data.posts,
+        total_pages: payload.data.total_pages,
       };
     case GET_BLOGS_FAIL:
       return {
         ...state,
-        apiLoading: false
+        apiLoading: false,
+        total_pages: undefined
       };
     case GET_BLOG:
       return {

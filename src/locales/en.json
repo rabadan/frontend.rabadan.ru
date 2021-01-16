@@ -1,5 +1,7 @@
 {
-  "home": "Home",
+  "navbar": {
+    "home": "Home"
+  },
   "auth": {
     "login": "Sign in",
     "login_email": "ign in with email",
@@ -22,6 +24,13 @@
     "title": "Blog",
     "continue_reading": "Continue reading"
   },
+  "paginator": {
+    "previous": "<",
+    "next": ">"
+  },
+  "home": {
+    "hello": "Hello"
+  },
   "errors": {
     "email_not_valid": "This is not a valid email.",
     "field_required": "This field is required!",
@@ -30,5 +39,11 @@
   "actions": {
     "loading": "Loading...",
     "update": "Update"
+  },
+  "contacts": {
+    "phone": "Phone",
+    "email": "Email",
+    "get_in_touch": "Get In Touch",
+    "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them."
   }
 }

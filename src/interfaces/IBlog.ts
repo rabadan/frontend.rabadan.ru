@@ -10,6 +10,7 @@ export interface IBlog {
   preview: string,
   body: string,
   image?: string,
+  image_crop?: string,
   imageTag?: JSX.Element,
   attachments?: IAttachment[],
   user_id: string,
@@ -24,10 +25,16 @@ export type TBlog = {
   preview: string,
   body: string,
   image?: string,
+  image_crop?: string,
   attachments?: IAttachment[],
   user_id: string,
   created_at: string,
   updated_at: string,
+}
+
+export interface TBlogListResponse {
+  posts: TBlogResponse[],
+  total_pages: number
 }
 
 export interface TBlogResponse {
@@ -37,6 +44,7 @@ export interface TBlogResponse {
   preview: string,
   body: string,
   image?: string,
+  image_crop?: string,
   attachments?: IAttachment[],
   user_id: string,
   created_at: string,
