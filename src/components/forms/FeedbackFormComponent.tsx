@@ -6,7 +6,6 @@ import { isEmail } from 'validator';
 import {IFeedback} from "../../interfaces/IFeedback";
 import {create} from "../../actions/FeedbackAction";
 import {TRootState} from "../../index";
-import setAuthorizationToken from "../../services/setAuthorizationToken";
 
 const connector = connect(
   ({ FeedbackReducer }: TRootState) => ({

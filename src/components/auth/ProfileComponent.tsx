@@ -20,7 +20,7 @@ function ConfigurationFormList(props: any) {
 
   const listItems = Object.keys(configs).map(key =>
     <div className="form-row" key={`prop_${key}`}>
-      <FieldForm data={configs[key]} field_name={key} setConfiguration={setConfiguration} />
+      <FieldForm data={configs[key]} field_name={key} setConfiguration={props.setConfiguration} />
     </div>
   )
 
@@ -70,11 +70,11 @@ const ProfileComponent: React.FC<TProfileProps> = ({configuration, user, logout,
     if (user && user.is_admin) {
       setListConfiguration(
         <div className="container">
-          <ConfigurationFormList configuration={configuration} />
+          <ConfigurationFormList configuration={configuration} setConfiguration={setConfiguration} />
         </div>
       );
     }
-  }, [configuration, user]);
+  }, [configuration, user, setConfiguration]);
 
   if (!user) {
     return <Redirect to="/login" />;
