@@ -8,6 +8,7 @@ import BlogListComponent from "./blogs/BlogListComponent";
 import BlogItemComponent from "./blogs/BlogItemComponent";
 import BlogFormComponent from "./blogs/BlogFormComponent";
 import ContactsComponent from "./ContactsComponent";
+import AboutMeComponent from "./AboutMeComponent";
 
 export default function RoutesComponent() {
   return (
@@ -18,6 +19,7 @@ export default function RoutesComponent() {
       <Route exact path="/profile" component={ProfileComponent} />
       <Route exact path="/blogs" component={BlogListComponent} />
       <Route exact path="/contacts" component={ContactsComponent} />
+      <Route exact path="/about" component={AboutMeComponent} />
       <Route exact path="/blogs/edit/:slug" component={BlogFormComponent} />
       <Route exact path="/blogs/:slug" component={BlogItemComponent} />
     </Switch>

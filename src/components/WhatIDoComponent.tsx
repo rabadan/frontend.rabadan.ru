@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
+import i18n from "../I18n";
 
 const connector = connect(
   () => ({}),
@@ -13,11 +14,10 @@ const WhatIDoComponent: React.FC<TWhatIDoProps> = () => {
     <section className="section services-section" id="services">
       <div className="container">
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-7">
             <div className="section-title">
-              <h2>What I Do</h2>
-              <p>I design and develop services for customers of all sizes, specializing in creating stylish, modern
-                websites</p>
+              <h2>{i18n.t('what_i_do.title')}</h2>
+              <p>{i18n.t('what_i_do.description')}</p>
             </div>
           </div>
         </div>

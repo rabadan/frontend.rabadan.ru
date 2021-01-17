@@ -22,7 +22,6 @@ const FooterComponent: React.FC<TFooterProps> = ({configuration}) => {
 
   return (
     <div className="fixed-bottom main-left">
-      {console.log('configuration render', Object.assign({}, configuration))}
       <footer className="footer white bg-white">
         <div className="container">
           <div className="row align-items-center">

@@ -22,7 +22,13 @@
   },
   "blog": {
     "title": "Blog",
+    "description": "Between coding, sometimes you want to scribble a couple of lines over a cup of coffee",
+    "latest_news": "Latest News",
     "continue_reading": "Continue reading"
+  },
+  "what_i_do": {
+    "title": "What I Do",
+    "description": "I design and develop services for customers of all sizes, specializing in creating stylish, modern websites"
   },
   "paginator": {
     "previous": "<",
@@ -41,9 +47,27 @@
     "update": "Update"
   },
   "contacts": {
+    "your_name": "Your name",
     "phone": "Phone",
     "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "email_address": "Email Address",
     "get_in_touch": "Get In Touch",
     "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them."
+  },
+  "date": {
+    "0": "JAN",
+    "1": "FEB",
+    "2": "MAR",
+    "3": "APR",
+    "4": "MAY",
+    "5": "JUN",
+    "6": "JUL",
+    "7": "AUG",
+    "8": "SEP",
+    "9": "OCT",
+    "10": "NOV",
+    "11": "DEC"
   }
 }

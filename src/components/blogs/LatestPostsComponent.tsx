@@ -1,100 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
+import {BlogsRow} from "./BLogRow";
+import {TRootState} from "../../index";
+import {getBlogs} from "../../actions/BlogAction";
+import i18n from "../../I18n";
 
 const connector = connect(
-  () => ({}),
-  {}
+  ({ BlogReducer }: TRootState) => ({
+    blogs: BlogReducer.blogs
+  }),
+  { getBlogs },
 );
 
 type TLatestPostsProps = ConnectedProps<typeof connector>;
 
-const LatestPostsComponent: React.FC<TLatestPostsProps> = () => {
+const LatestPostsComponent: React.FC<TLatestPostsProps> = ({blogs, getBlogs}) => {
+  useEffect(() => {
+    getBlogs(1);
+  }, [getBlogs]);
+
   return (
     <section className="section" id="blog">
       <div className="container">
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-7">
             <div className="section-title">
-              <h2>Latest News</h2>
-              <p>I design and develop services for customers of all sizes, specializing in creating stylish, modern
-                websites</p>
+              <h2>{i18n.t('blog.latest_news')}</h2>
+              <p>{i18n.t('blog.description')}</p>
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-lg-4">
-            <div className="blog-grid">
-              <div className="blog-img">
-                <div className="date">
-                  <span>04</span>
-                  <label>FEB</label>
-                </div>
-                <a href="blog.html">
-                  <img src={'static/img/blog-1.jpg'} title="" alt="" />
-                </a>
-              </div>
-              <div className="blog-info">
-                <h5><a href="blog.html">Prevent 75% of visitors from google analytics</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-                <div className="btn-bar">
-                  <a href="blog.html" className="px-btn-arrow">
-                    <span>Read More</span>
-                    <i className="arrow" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="blog-grid">
-              <div className="blog-img">
-                <div className="date">
-                  <span>04</span>
-                  <label>FEB</label>
-                </div>
-                <a href="blog.html">
-                  <img src={'static/img/blog-1.jpg'} title="" alt="" />
-                </a>
-              </div>
-              <div className="blog-info">
-                <h5><a href="blog.html">Prevent 75% of visitors from google analytics</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-                <div className="btn-bar">
-                  <a href="blog.html" className="px-btn-arrow">
-                    <span>Read More</span>
-                    <i className="arrow" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4">
-            <div className="blog-grid">
-              <div className="blog-img">
-                <div className="date">
-                  <span>04</span>
-                  <label>FEB</label>
-                </div>
-                <a href="blog.html">
-                  <img src={'static/img/blog-1.jpg'} title="" alt="" />
-                </a>
-              </div>
-              <div className="blog-info">
-                <h5><a href="blog.html">Prevent 75% of visitors from google analytics</a></h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-                <div className="btn-bar">
-                  <a href="blog.html" className="px-btn-arrow">
-                    <span>Read More</span>
-                    <i className="arrow" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BlogsRow blogs={blogs.slice(0, 3)} />
       </div>
     </section>
   );

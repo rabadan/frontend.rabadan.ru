@@ -2,6 +2,7 @@ import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
 import i18n from "../I18n";
+import FeedbackFormComponent from "./forms/FeedbackFormComponent";
 
 const connector = connect(
   ({ ConfigurationReducer }: TRootState) => ({
@@ -34,43 +35,7 @@ const ContactsComponent: React.FC<TContactsProps> = ({configuration}) => {
           </div>
           <div className="row flex-row-reverse">
             <div className="col-md-7 col-lg-8 m-15px-tb">
-              <div className="contact-form">
-                <form action="/" method="post" className="contactform contact_form" id="contact_form">
-                  <div className="returnmessage valid-feedback p-15px-b"
-                       data-success="Your message has been received, We will contact you soon." />
-                  <div className="empty_notice invalid-feedback p-15px-b"><span>Please Fill Required Fields</span></div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <input id="name" type="text" placeholder="Full Name" className="form-control"/>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <input id="email" type="text" placeholder="Email Address" className="form-control"/>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-group">
-                        <input id="subject" type="text" placeholder="Subject" className="form-control"/>
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <textarea id="message" placeholder="Message" className="form-control" rows={3} />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="send">
-                        <a id="send_message" className="px-btn theme" href="/">
-                          <span>{i18n.t('contacts.contact_us')}</span>
-                          <i className="arrow" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
+              <FeedbackFormComponent />
             </div>
             <div className="col-md-5 col-lg-4 m-15px-tb">
               <div className="contact-name">

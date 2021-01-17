@@ -34,6 +34,7 @@ const BlogItemComponent: React.FC<TBlogProps> = ({blog, slug, getBlog}) => {
           <div className="row justify-content-center">
             <div className="col-lg-8 white-color text-center">
               <h1>{blog.title}</h1>
+              <p>{blog.preview}</p>
             </div>
           </div>
         </div>

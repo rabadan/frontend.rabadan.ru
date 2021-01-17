@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../../index";
-import {IBlog} from "../../interfaces/IBlog";
 import {getBlogs} from "../../actions/BlogAction";
-// @ts-ignore
-import Time from 'react-time-format'
-import {Link} from "react-router-dom";
 import i18n from "../../I18n";
 import ReactPaginate from 'react-paginate';
 import { animateScroll as scroll } from "react-scroll";
 import { history } from '../../helpers/History';
 import {useLocation} from "react-router-dom";
+import {BlogsRow} from "./BLogRow";
 
 const connector = connect(
   ({ BlogReducer }: TRootState) => ({
@@ -79,6 +76,7 @@ const BlogListComponent: React.FC<TBlogListProps> = ({blogs, total_pages, getBlo
           <div className="row justify-content-center">
             <div className="col-lg-8 white-color text-center">
               <h1>{i18n.t('blog.title')}</h1>
+              <p>{i18n.t('blog.description')}</p>
             </div>
           </div>
         </div>
@@ -100,50 +98,5 @@ const BlogListComponent: React.FC<TBlogListProps> = ({blogs, total_pages, getBlo
     </div>
   );
 }
-
-function BlogsRow(props: { blogs: IBlog[]; }) {
-  // для удобства записываем значение props.users в переменную users
-  const blogs = props.blogs;
-  // используя метод map() и заполняем данными тег li
-  const listItems = blogs.map(( blog, index ) =>
-    <div key={ index.toString() } className="col-sm-4">
-      <div className="blog-grid">
-        <div className="blog-img">
-          <div className="date">
-              <span>
-                <Time value={blog.created_at} format="DD" />
-              </span>
-            <label><Time value={blog.created_at} format="MM" /></label>
-          </div>
-          <Link to={`/blogs/${blog.slug}`}>
-            {blog.imageTag}
-          </Link>
-        </div>
-        <div className="blog-info">
-          <h5>
-            <Link to={`/blogs/${blog.slug}`}>
-              {blog.title}
-            </Link>
-          </h5>
-          <p>{blog.preview}</p>
-          <div className="btn-bar">
-            <Link to={`/blogs/${blog.slug}`} className="px-btn-arrow">
-              <span>Read More</span>
-              <i className="arrow" />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Возвращаем список с именами пользователей
-  return (
-    <div className="row">
-      { listItems }
-    </div>
-  );
-}
-
 
 export default connector(BlogListComponent);

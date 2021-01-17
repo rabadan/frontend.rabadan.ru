@@ -7,12 +7,14 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import HttpClientBuilder from "./services/HttpClientBuilder";
 import ConfigurationReducer from "./reducers/ConfigurationReducer";
+import FeedbackReducer from "./reducers/FeedbackReducer";
 
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
   MessageReducer,
-  ConfigurationReducer
+  ConfigurationReducer,
+  FeedbackReducer
 });
 
 const axiosMiddleware = reduxAxiosMiddleware(HttpClientBuilder.fetchClient());
