@@ -5,11 +5,12 @@ import {
   SET_CONFIGURATION,
   SET_CONFIGURATION_SUCCESS,
   SET_CONFIGURATION_FAIL,
-  SET_MESSAGE
+  SET_MESSAGE, SET_LANG
 } from './Types';
 
 import {Dispatch} from "redux";
 import ConfigurationRequest from "../requests/ConfigurationRequest";
+import {changeLang} from "../I18n";
 
 export const getConfigurations = () => (dispatch: Dispatch) => {
   dispatch({type: GET_CONFIGURATION});
@@ -46,4 +47,8 @@ export const setConfiguration = (name:string|undefined, data: string) => (dispat
       return Promise.reject();
     }
   );
+}
+
+export const setConfigurationLang = (lang: string) => (dispatch: Dispatch) => {
+  dispatch({type: SET_LANG, payload: changeLang(lang)});
 }

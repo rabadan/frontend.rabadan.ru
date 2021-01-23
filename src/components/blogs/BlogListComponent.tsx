@@ -10,9 +10,10 @@ import {useLocation} from "react-router-dom";
 import {BlogsRow} from "./BLogRow";
 
 const connector = connect(
-  ({ BlogReducer }: TRootState) => ({
+  ({ BlogReducer, ConfigurationReducer }: TRootState) => ({
     blogs: BlogReducer.blogs,
     total_pages: BlogReducer.total_pages,
+    lang: ConfigurationReducer.lang,
   }),
   { getBlogs },
 );

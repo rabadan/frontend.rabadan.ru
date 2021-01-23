@@ -5,12 +5,15 @@ import {
   SET_CONFIGURATION,
   SET_CONFIGURATION_SUCCESS,
   SET_CONFIGURATION_FAIL,
+  SET_LANG,
 } from '../actions/Types';
 
 import {IReduxAction} from "../interfaces/IReduxAction";
+import {localeCode} from "../I18n";
 
 export interface IConfigurationReducer {
   apiLoading: boolean;
+  lang: string;
   configuration: {
     social_facebook?: string;
     social_vk?: string;
@@ -27,6 +30,7 @@ export interface IConfigurationReducer {
 
 const initialState: IConfigurationReducer = {
   apiLoading: false,
+  lang: localeCode(),
   configuration: {
     social_facebook: '',
     social_vk: '',
@@ -73,6 +77,12 @@ export default function (state = initialState, action: IReduxAction): IConfigura
       return {
         ...state,
         apiLoading: false,
+      };
+    case SET_LANG:
+      console.log(payload)
+      return {
+        ...state,
+        lang: payload,
       };
     default:
       return state;

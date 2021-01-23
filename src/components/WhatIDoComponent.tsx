@@ -1,9 +1,12 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import i18n from "../I18n";
+import {TRootState} from "../index";
 
 const connector = connect(
-  () => ({}),
+  ({ConfigurationReducer}: TRootState) => ({
+    lang: ConfigurationReducer.lang,
+  }),
   {}
 );
 

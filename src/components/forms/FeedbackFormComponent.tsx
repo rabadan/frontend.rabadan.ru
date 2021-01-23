@@ -8,7 +8,8 @@ import {create} from "../../actions/FeedbackAction";
 import {TRootState} from "../../index";
 
 const connector = connect(
-  ({ FeedbackReducer }: TRootState) => ({
+  ({ FeedbackReducer, ConfigurationReducer }: TRootState) => ({
+    lang: ConfigurationReducer.lang,
     apiLoading: FeedbackReducer.apiLoading,
   }),
   {create}

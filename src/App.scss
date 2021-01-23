@@ -46,3 +46,13 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.select-lang-button {
+  width: 21px;
+  opacity: 0.85;
+  margin: 0 5px;
+  cursor: pointer;
+}
+html[lang="ru"] .select-lang-button.lang-ru, html[lang="en"] .select-lang-button.lang-en {
+  opacity: 0.35;
+}

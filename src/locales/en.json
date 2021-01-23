@@ -1,6 +1,15 @@
 {
+  "home": {
+    "hello": "Hello",
+    "rabadan": "Rabadan",
+    "akagasanov": "Akagasanov"
+  },
   "navbar": {
-    "home": "Home"
+    "home": "Home",
+    "about": "About",
+    "resume": "Resume",
+    "portfolio": "Portfolio",
+    "contactus": "My contacts"
   },
   "auth": {
     "login": "Sign in",
@@ -12,7 +21,7 @@
     "logout": "Logout",
     "not_account": "Don't have an account?",
     "register_now": "Register now",
-    "sign_up": "Регистрация",
+    "sign_up": "Sign up",
     "profile": "Profile",
     "field": {
       "password": "Password"
@@ -34,9 +43,6 @@
     "previous": "<",
     "next": ">"
   },
-  "home": {
-    "hello": "Hello"
-  },
   "errors": {
     "email_not_valid": "This is not a valid email.",
     "field_required": "This field is required!",
@@ -54,6 +60,7 @@
     "message": "Message",
     "email_address": "Email Address",
     "get_in_touch": "Get In Touch",
+    "contact_us": "Contact with me",
     "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them."
   },
   "date": {

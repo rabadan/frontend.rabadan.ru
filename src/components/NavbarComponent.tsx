@@ -6,15 +6,16 @@ import {TRootState} from "../index";
 import {logout} from "../actions/AuthAction";
 
 const connector = connect(
-  ({ AuthReducer }: TRootState) => ({
-    user: AuthReducer.user
+  ({ AuthReducer, ConfigurationReducer }: TRootState) => ({
+    user: AuthReducer.user,
+    lang: ConfigurationReducer.lang,
   }),
   { logout },
 );
 
 type TNavbarContainerProps = ConnectedProps<typeof connector>;
 
-const NavbarComponent: React.FC<TNavbarContainerProps> = ({user, logout}) => {
+const NavbarComponent: React.FC<TNavbarContainerProps> = () => {
   return (
     <ul className="nav">
       <li>

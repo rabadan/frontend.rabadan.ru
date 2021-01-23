@@ -5,8 +5,18 @@ import ExperienceComponent from './ExperienceComponent';
 import WhatIDoComponent from "./WhatIDoComponent";
 import AboutMeComponent from "./AboutMeComponent";
 import LatestPostsComponent from "./blogs/LatestPostsComponent";
+import {connect, ConnectedProps} from "react-redux";
+import {TRootState} from "../index";
 
-const HomeComponent: React.FC = () => {
+const connector = connect(
+  ({ ConfigurationReducer }: TRootState) => ({
+    lang: ConfigurationReducer.lang,
+  }),
+  {}
+);
+type THomeProps = ConnectedProps<typeof connector>;
+
+const HomeComponent: React.FC<THomeProps> = () => {
   return (
     <div className="">
       <section id="home" className="home-banner-01" style={{backgroundImage: 'url(static/img/home-banner.jpg)'}}>

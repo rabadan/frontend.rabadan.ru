@@ -11,11 +11,12 @@ import { upload_handler } from '../../requests/FileRequest';
 const TINY_API_KEY = process.env.REACT_APP_TINY_API_KEY;
 
 const connector = connect(
-  ({ BlogReducer, MessageReducer, AuthReducer }: TRootState, {match}: any) => ({
+  ({ BlogReducer, MessageReducer, AuthReducer, ConfigurationReducer }: TRootState, {match}: any) => ({
     blog: BlogReducer.blog,
     user: AuthReducer.user,
     slug: match.params.slug,
-    message: MessageReducer.message
+    message: MessageReducer.message,
+    lang: ConfigurationReducer.lang
   }),
   { getBlog, setBlog }
 );

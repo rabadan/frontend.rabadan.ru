@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {login_with_vk} from "../../actions/AuthAction";
 import i18n from "../../I18n";
+import {TRootState} from "../../index";
 
 const VK_CLIENT_ID = process.env.REACT_APP_VK_ID;
 const VK_SCOPE = 4194304;
 
 const connector = connect(
-  () => ({}),
+  ({ ConfigurationReducer }: TRootState) => ({
+    lang: ConfigurationReducer.lang
+  }),
   { login_with_vk },
 );
 type TLoginProps = ConnectedProps<typeof connector>;

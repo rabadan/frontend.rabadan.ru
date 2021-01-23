@@ -5,8 +5,9 @@ import {getBlog} from "../../actions/BlogAction";
 import i18n from "../../I18n";
 
 const connector = connect(
-  ({ BlogReducer }: TRootState, {match}: any) => ({
+  ({ BlogReducer, ConfigurationReducer }: TRootState, {match}: any) => ({
     blog: BlogReducer.blog,
+    lang: ConfigurationReducer.lang,
     slug: match.params.slug
   }),
   { getBlog }

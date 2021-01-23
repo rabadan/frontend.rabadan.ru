@@ -16,10 +16,11 @@ import {TRootState} from "../../index";
 import setAuthorizationToken from "../../services/setAuthorizationToken";
 
 const connector = connect(
-  ({ MessageReducer, AuthReducer }: TRootState) => ({
+  ({ MessageReducer, AuthReducer, ConfigurationReducer }: TRootState) => ({
     apiLoading: AuthReducer.apiLoading,
     isLoggedIn: AuthReducer.isLoggedIn,
     message: MessageReducer.message,
+    lang: ConfigurationReducer.lang,
   }),
   { register },
 );

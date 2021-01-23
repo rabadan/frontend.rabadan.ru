@@ -22,10 +22,11 @@ const FB_CLIENT_ID = process.env.REACT_APP_FACEBOOK_ID;
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const connector = connect(
-  ({ AuthReducer, MessageReducer }: TRootState) => ({
+  ({ AuthReducer, MessageReducer, ConfigurationReducer }: TRootState) => ({
     apiLoading: AuthReducer.apiLoading,
     isLoggedIn: AuthReducer.isLoggedIn,
     message: MessageReducer.message,
+    lang: ConfigurationReducer.lang,
   }),
   { login, login_with_facebook, login_with_google },
 );

@@ -6,7 +6,8 @@ import {getBlogs} from "../../actions/BlogAction";
 import i18n from "../../I18n";
 
 const connector = connect(
-  ({ BlogReducer }: TRootState) => ({
+  ({ BlogReducer, ConfigurationReducer }: TRootState) => ({
+    lang: ConfigurationReducer.lang,
     blogs: BlogReducer.blogs
   }),
   { getBlogs },
