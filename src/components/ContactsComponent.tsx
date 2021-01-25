@@ -2,7 +2,7 @@ import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
 import i18n from "../I18n";
-import FeedbackFormComponent from "./forms/FeedbackFormComponent";
+import FeedbackForm from "./forms/FeedbackForm";
 
 const connector = connect(
   ({ ConfigurationReducer }: TRootState) => ({
@@ -35,7 +35,7 @@ const ContactsComponent: React.FC<TContactsProps> = ({configuration}) => {
           </div>
           <div className="row flex-row-reverse">
             <div className="col-md-7 col-lg-8 m-15px-tb">
-              <FeedbackFormComponent />
+              <FeedbackForm />
             </div>
             <div className="col-md-5 col-lg-4 m-15px-tb">
               <div className="contact-name">

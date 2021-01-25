@@ -8,12 +8,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import HttpClientBuilder from "./services/HttpClientBuilder";
 import ConfigurationReducer from "./reducers/ConfigurationReducer";
 import FeedbackReducer from "./reducers/FeedbackReducer";
+import PageReducer from "./reducers/PageReducer";
 
 const rootReducer = combineReducers({
   AuthReducer,
   BlogReducer,
   MessageReducer,
   ConfigurationReducer,
+  PageReducer,
   FeedbackReducer
 });
 

@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/solid";
 //@import "static/plugin/et-line/style";
 //@import "static/plugin/themify-icons/themify-icons";
 //@import "static/plugin/owl-carousel/css/owl.carousel";
@@ -48,11 +49,17 @@ label {
 }
 
 .select-lang-button {
-  width: 21px;
+  height: 100%;
   opacity: 0.85;
   margin: 0 5px;
   cursor: pointer;
 }
 html[lang="ru"] .select-lang-button.lang-ru, html[lang="en"] .select-lang-button.lang-en {
   opacity: 0.35;
+}
+.show-only-hover {
+  opacity: 0.15;
+  &:hover {
+    opacity: 0.85;
+  }
 }

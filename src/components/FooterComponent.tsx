@@ -1,17 +1,20 @@
 import React from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
+import {Link} from "react-router-dom";
 
 const connector = connect(
-  ({ ConfigurationReducer }: TRootState) => ({
+  ({ AuthReducer, ConfigurationReducer }: TRootState) => ({
     configuration: ConfigurationReducer.configuration,
+    lang: ConfigurationReducer.lang,
+    user: AuthReducer.user,
   }),
   {}
 );
 
 type TFooterProps = ConnectedProps<typeof connector>;
 
-const FooterComponent: React.FC<TFooterProps> = ({configuration}) => {
+const FooterComponent: React.FC<TFooterProps> = ({configuration, lang}) => {
   const socialLink = (key_config: string, icon: string) => {
     // @ts-ignore
     if (configuration && configuration[key_config]) {
@@ -34,7 +37,10 @@ const FooterComponent: React.FC<TFooterProps> = ({configuration}) => {
               </div>
             </div>
             <div className="col-md-6 m-10px-tb text-center text-md-right">
-              <p>© 2020 copyright all right reserved</p>
+              <Link to={`/${lang}/login`} className="show-only-hover mr-2">
+                <i className="fas fa-sign-in-alt" />
+              </Link>
+              © 2020 copyright all right reserved
             </div>
           </div>
         </div>

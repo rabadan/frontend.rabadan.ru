@@ -42,12 +42,12 @@ const required = (value: string) => {
   }
 }
 
-const LoginComponent: React.FC<TLoginProps> = ({message, apiLoading, isLoggedIn, login, login_with_google, login_with_facebook}) => {
+const LoginComponent: React.FC<TLoginProps> = ({lang, message, apiLoading, isLoggedIn, login, login_with_google, login_with_facebook}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   if (isLoggedIn) {
-    return <Redirect to="/profile"/>
+    return <Redirect to={`/${lang}/profile`}/>
   }
 
   let form: Form;
@@ -62,7 +62,7 @@ const LoginComponent: React.FC<TLoginProps> = ({message, apiLoading, isLoggedIn,
       login(email, password)
         .then(() => {
           setAuthorizationToken(localStorage.jwtToken)
-          window.location.assign('/profile')
+          window.location.assign(`/${lang}/profile`)
         })
     }
   };
@@ -143,7 +143,7 @@ const LoginComponent: React.FC<TLoginProps> = ({message, apiLoading, isLoggedIn,
           <hr />
 
           <p>{i18n.t('auth.not_account')}</p>
-          <Link to={'/register'} className="btn btn-success">
+          <Link to={`/${lang}/register`} className="btn btn-success">
             {i18n.t('auth.sign_up')}
           </Link>
         </div>

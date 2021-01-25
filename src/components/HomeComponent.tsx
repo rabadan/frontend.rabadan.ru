@@ -16,7 +16,7 @@ const connector = connect(
 );
 type THomeProps = ConnectedProps<typeof connector>;
 
-const HomeComponent: React.FC<THomeProps> = () => {
+const HomeComponent: React.FC<THomeProps> = ({lang}) => {
   return (
     <div className="">
       <section id="home" className="home-banner-01" style={{backgroundImage: 'url(static/img/home-banner.jpg)'}}>
@@ -29,7 +29,7 @@ const HomeComponent: React.FC<THomeProps> = () => {
                 <h2>A <span className="theme-color">Product Designer</span>, Passionate About Solving Complex Problems
                 </h2>
                 <div className="btn-bar go-to">
-                  <Link to={'/contacts'} className="px-btn theme">
+                  <Link to={`/${lang}/contacts`} className="px-btn theme">
                     <span>{i18n.t('contacts.contact_us')}</span>
                     <i className="arrow"/>
                   </Link>

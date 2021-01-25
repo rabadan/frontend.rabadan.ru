@@ -50,6 +50,8 @@
   },
   "actions": {
     "loading": "Loading...",
+    "save": "Save",
+    "edit_page": "Редактирование страницы",
     "update": "Update"
   },
   "contacts": {
@@ -62,6 +64,16 @@
     "get_in_touch": "Get In Touch",
     "contact_us": "Contact with me",
     "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them."
+  },
+  "fields": {
+    "id": "ID",
+    "title": "Title",
+    "h1": "H1 title",
+    "breadcrumb": "Breadcrumb",
+    "body": "Body",
+    "footer": "Footer",
+    "seo_desc": "Meta[desc]",
+    "seo_key": "Meta[key]"
   },
   "date": {
     "0": "JAN",

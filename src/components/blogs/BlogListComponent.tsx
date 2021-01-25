@@ -20,7 +20,7 @@ const connector = connect(
 
 type TBlogListProps = ConnectedProps<typeof connector>;
 
-const BlogListComponent: React.FC<TBlogListProps> = ({blogs, total_pages, getBlogs}) => {
+const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, total_pages, getBlogs}) => {
   const [page, setPage] = useState(0);
   const search = useLocation().search;
   const params_page = new URLSearchParams(search).get('page');
@@ -36,12 +36,12 @@ const BlogListComponent: React.FC<TBlogListProps> = ({blogs, total_pages, getBlo
   useEffect(() => {
     scroll.scrollToTop({duration: 100});
     getBlogs(page+1);
-  }, [page, getBlogs]);
+  }, [page, getBlogs, lang]);
 
   const handlePageClick = function(paginate: any) {
     const new_page:number = paginate.selected
     setPage(new_page)
-    history.push(`/blogs?page=${new_page+1}`)
+    history.push(`/${lang}/blogs?page=${new_page+1}`)
   }
 
   let paginator;

@@ -17,7 +17,7 @@ const connector = connect(
 
 type TFeedbackFormProps = ConnectedProps<typeof connector>;
 
-const FeedbackFormComponent: React.FC<TFeedbackFormProps> = ({apiLoading, create}) => {
+const FeedbackForm: React.FC<TFeedbackFormProps> = ({apiLoading, create}) => {
   const [notify, setNotify] = useState({message: '',  type: ''});
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -102,7 +102,6 @@ const FeedbackFormComponent: React.FC<TFeedbackFormProps> = ({apiLoading, create
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(validateForm()) {
-      console.log('VALID', apiLoading)
       create({name, email, subject, message}).then(() => {
         setName('')
         setEmail('')
@@ -204,4 +203,4 @@ const FeedbackFormComponent: React.FC<TFeedbackFormProps> = ({apiLoading, create
   )
 }
 
-export default connector(FeedbackFormComponent);
+export default connector(FeedbackForm);

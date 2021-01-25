@@ -1,51 +1,54 @@
 import {IAttachment} from "./IAttachment";
 
-export interface IBlog {
+export interface IPage {
   id: string,
   title: string,
+  h1: string,
   slug: string,
-  preview: string,
+  breadcrumb: string,
   body: string,
   image?: string,
   image_crop?: string,
+  attachments?: IAttachment[],
+  footer: string,
+  seo_desc: string,
+  seo_key: string,
+  lang: string,
+  created_at: string,
+  updated_at: string,
   imageTag?: JSX.Element,
-  attachments?: IAttachment[],
-  user_id: string,
-  lang: string,
-  created_at: string,
-  updated_at: string,
 }
 
-export type TBlog = {
+export type TPage = {
   id: string,
   title: string,
+  h1: string,
   slug: string,
-  preview: string,
+  breadcrumb: string,
   body: string,
   image?: string,
   image_crop?: string,
   attachments?: IAttachment[],
-  user_id: string,
-  lang: string,
+  footer: string,
+  seo_desc: string,
+  seo_key: string,
   created_at: string,
   updated_at: string,
 }
 
-export interface TBlogListResponse {
-  posts: TBlogResponse[],
-  total_pages: number
-}
-
-export interface TBlogResponse {
+export interface IPageResponse {
   id: string,
   title: string,
+  h1: string,
   slug: string,
-  preview: string,
+  breadcrumb: string,
   body: string,
   image?: string,
   image_crop?: string,
   attachments?: IAttachment[],
-  user_id: string,
+  footer: string,
+  seo_desc: string,
+  seo_key: string,
   lang: string,
   created_at: string,
   updated_at: string,

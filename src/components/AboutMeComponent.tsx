@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
-
+import {TRootState} from "../index";
+import {getPage} from "../actions/PageAction";
+import {Link} from "react-router-dom";
+const pageSlug = 'about';
 const connector = connect(
-  () => ({}),
-  {}
+  ({ ConfigurationReducer, PageReducer, AuthReducer }: TRootState) => ({
+    lang: ConfigurationReducer.lang,
+    page: PageReducer.page,
+    user: AuthReducer.user,
+  }),
+  {getPage}
 );
 
 type TAboutMeProps = ConnectedProps<typeof connector>;
 
-const AboutMeComponent: React.FC<TAboutMeProps> = () => {
+const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, user}) => {
+  useEffect(() => {
+    getPage(pageSlug)
+  }, [lang, getPage]);
+
+  if (!page) {
+    return (<h1>Loading... <i className='fas fs-spin fa-spinner' /></h1>)
+  }
+
   return (
     <section className="section about-section gray-bg" id="about">
       <div className="container">
@@ -95,6 +110,10 @@ const AboutMeComponent: React.FC<TAboutMeProps> = () => {
             </div>
           </div>
         </div>
+
+        <p>
+          {user && user.is_admin && (<Link to={`/${lang}/pages/${pageSlug}/edit`}>EDIT</Link>)}
+        </p>
       </div>
     </section>
   );

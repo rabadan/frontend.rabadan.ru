@@ -79,7 +79,6 @@ export default function (state = initialState, action: IReduxAction): IConfigura
         apiLoading: false,
       };
     case SET_LANG:
-      console.log(payload)
       return {
         ...state,
         lang: payload,

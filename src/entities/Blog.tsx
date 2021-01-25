@@ -1,4 +1,5 @@
-import {IAttachment, IBlog} from '../interfaces/IBlog';
+import {IBlog} from '../interfaces/IBlog';
+import {IAttachment} from '../interfaces/IAttachment';
 import React from "react";
 
 export default class Blog implements IBlog {
@@ -12,6 +13,7 @@ export default class Blog implements IBlog {
   private readonly _image_crop?: string;
   private readonly _attachments: IAttachment[] | undefined;
   private readonly _created_at: string;
+  private readonly _lang: string;
   private readonly _updated_at: string;
 
   constructor(blog: IBlog) {
@@ -24,6 +26,7 @@ export default class Blog implements IBlog {
     this._image = blog.image;
     this._image_crop = blog.image_crop;
     this._attachments = blog.attachments;
+    this._lang = blog.lang;
     this._created_at = blog.created_at;
     this._updated_at = blog.updated_at;
   }
@@ -77,6 +80,10 @@ export default class Blog implements IBlog {
 
   get slug(): string {
     return this._slug;
+  }
+
+  get lang(): string {
+    return this._lang;
   }
 
   get user_id(): string {

@@ -19,19 +19,19 @@ export function BlogsRow(props: { blogs: IBlog[]; }) {
               {i18n.t(`date.${new Date(blog.created_at).getUTCMonth()}`)}
             </label>
           </div>
-          <Link to={`/blogs/${blog.slug}`}>
+          <Link to={`/${i18n.locale}/blogs/${blog.slug}`}>
             {blog.imageTag}
           </Link>
         </div>
         <div className="blog-info">
           <h5>
-            <Link to={`/blogs/${blog.slug}`}>
+            <Link to={`/${i18n.locale}/blogs/${blog.slug}`}>
               {blog.title}
             </Link>
           </h5>
           <p>{blog.preview}</p>
           <div className="btn-bar">
-            <Link to={`/blogs/${blog.slug}`} className="px-btn-arrow">
+            <Link to={`/${i18n.locale}/blogs/${blog.slug}`} className="px-btn-arrow">
               <span>Read More</span>
               <i className="arrow" />
             </Link>

@@ -9,6 +9,7 @@ import {setConfiguration} from "../../actions/ConfigurationAction";
 const connector = connect(
   ({ AuthReducer, ConfigurationReducer }: TRootState) => ({
     user: AuthReducer.user,
+    lang: ConfigurationReducer.lang,
     configuration: ConfigurationReducer.configuration
   }),
   {logout, setConfiguration},
@@ -63,7 +64,7 @@ function FieldForm(props:any) {
   );
 }
 
-const ProfileComponent: React.FC<TProfileProps> = ({configuration, user, logout, setConfiguration}) => {
+const ProfileComponent: React.FC<TProfileProps> = ({lang, configuration, user, logout, setConfiguration}) => {
   const [listConfiguration, setListConfiguration] = useState(<div><i className="fas fa-spin fa-spinner" /></div>);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ const ProfileComponent: React.FC<TProfileProps> = ({configuration, user, logout,
   }, [configuration, user, setConfiguration]);
 
   if (!user) {
-    return <Redirect to="/login" />;
+    return <Redirect to={`/${lang}/login`} />;
   }
 
   return (
@@ -87,7 +88,7 @@ const ProfileComponent: React.FC<TProfileProps> = ({configuration, user, logout,
           <div className="col-lg-6">
             <div className="section-title"><h2>{user.name}</h2>
               <p>{user.email}</p>
-              <a href={'/login'} className="nav-link pl-0" onClick={logout}>{i18n.t('auth.logout')}</a>
+              <a href={`/${lang}/login`} className="nav-link pl-0" onClick={logout}>{i18n.t('auth.logout')}</a>
             </div>
           </div>
         </div>
