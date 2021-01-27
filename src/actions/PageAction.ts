@@ -10,11 +10,11 @@ import {
 import PageRequest from '../requests/PageRequest';
 import {Dispatch} from "redux";
 
-export function getPage(slug: string) {
+export function getPage(slug: string, lang?: string) {
   return (dispatch: Dispatch) => {
     dispatch({ type: GET_PAGE });
 
-    return PageRequest.show(slug)
+    return PageRequest.show(slug, lang)
       .then(page => {
         dispatch({type: GET_PAGE_SUCCESS, payload: { data: page }});
         return Promise.resolve();
@@ -28,11 +28,11 @@ export function getPage(slug: string) {
 }
 
 
-export function setPage(slug: string, formData: FormData) {
+export function setPage(slug: string, formData: FormData, lang?: string) {
   return (dispatch: Dispatch) => {
     dispatch({ type: SET_PAGE });
 
-    return PageRequest.put(slug, formData)
+    return PageRequest.put(slug, formData, lang)
       .then(response => {
         dispatch({type: SET_PAGE_SUCCESS, payload: { data: response }});
         return Promise.resolve();

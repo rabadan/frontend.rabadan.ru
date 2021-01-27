@@ -16,8 +16,6 @@ const LangButtonsComponent: React.FC<TLangButtonsProps> = ({setConfigurationLang
     };
   }
 
-  console.log('props')
-
   return (
     <div className="d-flex justify-content-center" style={{height: '100%'}}>
       <svg onClick={setLang('ru')} className="select-lang-button lang-ru" xmlns="http://www.w3.org/2000/svg"

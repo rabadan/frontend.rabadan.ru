@@ -21,15 +21,13 @@ const connector = connect(
 
 type TPageEditFormProps = ConnectedProps<typeof connector>;
 
-const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPage, apiLoading}) => {
+const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPage, apiLoading, lang}) => {
   const [formPage, setFormPage] = useState<IPage>();
   const [errors, setErrors] = useState<IPage>({body: "", breadcrumb: "", footer: "", h1: "", id: "", image: "", lang: "", seo_desc: "", seo_key: "", slug: "", title: "", created_at: "", updated_at: ""});
   const [notify, setNotify] = useState({message: '',  type: ''});
 
-  console.log('slug', slug)
-
-  useEffect(() => {getPage(slug)}, [getPage, slug]);
-  useEffect(() => {setFormPage(page)}, [page]);
+  useEffect(() => {getPage(slug, lang)}, [getPage, slug, lang]);
+  useEffect(() => {setFormPage(page)}, [page, slug, lang]);
 
   if (!formPage || !page) {
     return (<div className='p-5'>Loading...</div>)
@@ -87,13 +85,13 @@ const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPag
       formData.append('page[seo_desc]', formPage.seo_desc)
       formData.append('page[seo_key]', formPage.seo_key)
 
-      setPage(page.slug, formData).then(() => {
+      setPage(page.slug, formData, lang).then(() => {
         setFormPage(page)
         setMessage('')
-        setNotify({message: 'Ваша заявка добавлена!',  type: 'success'})
+        setNotify({message: i18n.t('actions.saved'),  type: 'success'})
       })
         .catch(() => {
-          setNotify({message: 'Не удалось подать заявку :( попробуйте еще',  type: 'danger'})
+          setNotify({message: i18n.t('actions.not_saved'),  type: 'danger'})
         });
     }
   }
@@ -109,7 +107,7 @@ const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPag
 
   function handleBodyChange(content: string) {
     const value = content || "";
-    let new_value = { ['body']: value } as any;
+    let new_value = { body: value } as any;
     setFormPage({...formPage, ...new_value })
     validateField('body', value)
   }
@@ -144,7 +142,7 @@ const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPag
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="page-edit-form">
+      <form onSubmit={handleSubmit} className="page-edit-form pb-5">
         {myInput('title', formPage.title, errors.title)}
         {myInput('h1', formPage.h1, errors.h1)}
         {myInput('footer', formPage.footer, errors.footer)}
@@ -185,7 +183,7 @@ const PageEditForm: React.FC<TPageEditFormProps> = ({page, slug, getPage, setPag
                   ? (<button className="" disabled={true}>{i18n.t('actions.saving')}</button>)
                   : (
                     <button className="btn btn-success">
-                      <span>{i18n.t('contacts.contact_us')}</span>
+                      <span>{i18n.t('actions.save')}</span>
                     </button>
                   )
               }

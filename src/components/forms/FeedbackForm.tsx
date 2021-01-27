@@ -107,10 +107,10 @@ const FeedbackForm: React.FC<TFeedbackFormProps> = ({apiLoading, create}) => {
         setEmail('')
         setSubject('')
         setMessage('')
-        setNotify({message: 'Ваша заявка добавлена!',  type: 'success'})
+        setNotify({message: i18n.t('contacts.feedback_saved'),  type: 'success'})
       })
       .catch(() => {
-        setNotify({message: 'Не удалось подать заявку :( попробуйте еще',  type: 'danger'})
+        setNotify({message: i18n.t('contacts.feedback_not_saved'),  type: 'danger'})
       });
     }
   };

@@ -20,11 +20,17 @@ export interface IConfigurationReducer {
     social_instagram?: string;
     social_linkedin?: string;
     social_github?: string;
+    user_age?: string;
+    user_education?: string;
     contacts_phone?: string;
     contacts_email?: string;
     contacts_skype?: string;
     contacts_residence?: string;
     contacts_address?: string;
+    counter_company?: string;
+    counter_project?: string;
+    counter_year?: string;
+    counter_technology?: string;
   }
 }
 
@@ -37,11 +43,17 @@ const initialState: IConfigurationReducer = {
     social_instagram: '',
     social_linkedin: '',
     social_github: '',
+    user_age: '',
+    user_education: '',
     contacts_phone: '',
     contacts_email: '',
     contacts_skype: '',
     contacts_residence: '',
-    contacts_address: ''
+    contacts_address: '',
+    counter_company: '',
+    counter_project: '',
+    counter_year: '',
+    counter_technology: ''
   }
 }
 

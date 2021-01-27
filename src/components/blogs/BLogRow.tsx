@@ -4,9 +4,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 
 export function BlogsRow(props: { blogs: IBlog[]; }) {
-  // для удобства записываем значение props.users в переменную users
   const blogs = props.blogs;
-  // используя метод map() и заполняем данными тег li
   const listItems = blogs.map(( blog, index ) =>
     <div key={ index.toString() } className="col-sm-4">
       <div className="blog-grid">
@@ -41,7 +39,6 @@ export function BlogsRow(props: { blogs: IBlog[]; }) {
     </div>
   );
 
-  // Возвращаем список с именами пользователей
   return (
     <div className="row">
       { listItems }

@@ -52,18 +52,30 @@
     "loading": "Loading...",
     "save": "Save",
     "edit_page": "Редактирование страницы",
+    "saved": "Saved!",
+    "not_saved": "Not saved.. :( Please try again..",
     "update": "Update"
   },
   "contacts": {
     "your_name": "Your name",
     "phone": "Phone",
+    "address": "Address",
+    "user_age": "Age",
+    "user_education": "Education",
+    "residence": "Residence",
     "email": "Email",
     "subject": "Subject",
     "message": "Message",
     "email_address": "Email Address",
     "get_in_touch": "Get In Touch",
     "contact_us": "Contact with me",
-    "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them."
+    "about_me": "I am a web developer who can quickly deal with IT-issues you faced on your projects and suggest the best solution to solve them.",
+    "feedback_saved": "Feedback saved!",
+    "feedback_not_saved": "Failed to apply :( please try again",
+    "counter_company": "Collaborated with companies",
+    "counter_project": "Projects implemented",
+    "counter_year": "Years of development",
+    "counter_technology": "Technologies studied"
   },
   "fields": {
     "id": "ID",

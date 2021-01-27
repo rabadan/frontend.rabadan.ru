@@ -2,20 +2,21 @@ import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
 import {getPage} from "../actions/PageAction";
-import {Link} from "react-router-dom";
+import i18n from "i18n-js";
+
 const pageSlug = 'about';
 const connector = connect(
-  ({ ConfigurationReducer, PageReducer, AuthReducer }: TRootState) => ({
+  ({ ConfigurationReducer, PageReducer }: TRootState) => ({
     lang: ConfigurationReducer.lang,
-    page: PageReducer.page,
-    user: AuthReducer.user,
+    configuration: ConfigurationReducer.configuration,
+    page: PageReducer.page
   }),
   {getPage}
 );
 
 type TAboutMeProps = ConnectedProps<typeof connector>;
 
-const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, user}) => {
+const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, configuration}) => {
   useEffect(() => {
     getPage(pageSlug)
   }, [lang, getPage]);
@@ -24,53 +25,48 @@ const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, user}) 
     return (<h1>Loading... <i className='fas fs-spin fa-spinner' /></h1>)
   }
 
+  document.title = page.title || i18n.t('navbar.about');
+  // @ts-ignore
+  document.querySelector('meta[name="description"]').content = page.seo_desc
+  // @ts-ignore
+  document.querySelector('meta[name="keywords"]').content = page.seo_key
+
   return (
     <section className="section about-section gray-bg" id="about">
       <div className="container">
         <div className="row align-items-center flex-row-reverse">
           <div className="col-lg-6">
             <div className="about-text go-to">
-              <h3 className="dark-color">About Me</h3>
-              <h6 className="theme-color lead">A Lead UX & UI designer based in Canada</h6>
-              <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating
-                stylish, modern websites, web services and online stores. My passion is to design digital user
-                experiences through the bold interface and meaningful interactions.
-              </p>
+              <h3 className="dark-color">{page.h1}</h3>
+              <h6 className="theme-color lead">{page.footer}</h6>
+              <div dangerouslySetInnerHTML={{__html: page.body}} />
               <div className="row about-list">
                 <div className="col-md-6">
                   <div className="media">
-                    <label>Birthday</label>
-                    <p>4th april 1998</p>
+                    <label>{i18n.t('contacts.user_age')}</label>
+                    <p>{configuration.user_age}</p>
                   </div>
                   <div className="media">
-                    <label>Age</label>
-                    <p>22 Yr</p>
+                    <label>{i18n.t('contacts.residence')}</label>
+                    <p>{configuration.contacts_residence}</p>
                   </div>
                   <div className="media">
-                    <label>Residence</label>
-                    <p>Canada</p>
-                  </div>
-                  <div className="media">
-                    <label>Address</label>
-                    <p>California, USA</p>
+                    <label className="ru_long">{i18n.t('contacts.user_education')}</label>
+                    <p>{configuration.user_education}</p>
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="media">
                     <label>E-mail</label>
-                    <p>info@domain.com</p>
+                    <p>{configuration.contacts_email}</p>
                   </div>
                   <div className="media">
-                    <label>Phone</label>
-                    <p>820-885-3321</p>
+                    <label>{i18n.t('contacts.phone')}</label>
+                    <p>{configuration.contacts_phone}</p>
                   </div>
                   <div className="media">
                     <label>Skype</label>
-                    <p>skype.0404</p>
-                  </div>
-                  <div className="media">
-                    <label>Freelance</label>
-                    <p>Available</p>
+                    <p>{configuration.contacts_skype}</p>
                   </div>
                 </div>
               </div>
@@ -86,34 +82,30 @@ const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, user}) 
           <div className="row">
             <div className="col-6 col-lg-3">
               <div className="count-data text-center">
-                <h6 className="count h2" data-to="500" data-speed="500">500</h6>
-                <p className="m-0px font-w-600">Happy Clients</p>
+                <h6 className="count h2" data-to="500" data-speed="500">{configuration.counter_company}</h6>
+                <p className="m-0px font-w-600">{i18n.t('contacts.counter_company')}</p>
               </div>
             </div>
             <div className="col-6 col-lg-3">
               <div className="count-data text-center">
-                <h6 className="count h2" data-to="150" data-speed="150">4650</h6>
-                <p className="m-0px font-w-600">Project Completed</p>
+                <h6 className="count h2" data-to="150" data-speed="150">{configuration.counter_project}</h6>
+                <p className="m-0px font-w-600">{i18n.t('contacts.counter_project')}</p>
               </div>
             </div>
             <div className="col-6 col-lg-3">
               <div className="count-data text-center">
-                <h6 className="count h2" data-to="850" data-speed="850">850</h6>
-                <p className="m-0px font-w-600">Photo Capture</p>
+                <h6 className="count h2" data-to="850" data-speed="850">{configuration.counter_year}</h6>
+                <p className="m-0px font-w-600">{i18n.t('contacts.counter_year')}</p>
               </div>
             </div>
             <div className="col-6 col-lg-3">
               <div className="count-data text-center">
-                <h6 className="count h2" data-to="190" data-speed="190">190</h6>
-                <p className="m-0px font-w-600">Telephonic Talk</p>
+                <h6 className="count h2" data-to="190" data-speed="190">{configuration.counter_technology}</h6>
+                <p className="m-0px font-w-600">{i18n.t('contacts.counter_technology')}</p>
               </div>
             </div>
           </div>
         </div>
-
-        <p>
-          {user && user.is_admin && (<Link to={`/${lang}/pages/${pageSlug}/edit`}>EDIT</Link>)}
-        </p>
       </div>
     </section>
   );

@@ -5,10 +5,11 @@ import {IPageResponse} from "../interfaces/IPage";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-async function show(slug: string) {
+async function show(slug: string, lang?: string) {
   const url = `${API_URL}api/v1/pages/${slug}`;
+  const headers = (lang === undefined ? undefined : {'Accept-Language': lang});
 
-  return RequestsService.get<any>(url)
+  return RequestsService.get<any>(url, headers)
     .then((response: any) => {
       return response;
     })
@@ -17,9 +18,13 @@ async function show(slug: string) {
     });
 }
 
-async function put(slug: string, formData: FormData) {
+async function put(slug: string, formData: FormData, lang?: string) {
   const url = `${API_URL}api/v1/pages/${slug}`;
-  const headers = {headers: authHeader()};
+  let headers = {headers: authHeader()} as any;
+  if (lang !== undefined) {
+    headers['Accept-Language'] = lang
+  }
+
   return RequestsService.put<IPageResponse>(url, formData, headers)
     .then((response: any) => {
       return response;

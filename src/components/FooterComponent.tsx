@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
 import {Link} from "react-router-dom";
 
 const connector = connect(
-  ({ AuthReducer, ConfigurationReducer }: TRootState) => ({
+  ({ AuthReducer, ConfigurationReducer, PageReducer }: TRootState) => ({
     configuration: ConfigurationReducer.configuration,
     lang: ConfigurationReducer.lang,
+    page: PageReducer.page,
     user: AuthReducer.user,
   }),
   {}
@@ -14,7 +15,9 @@ const connector = connect(
 
 type TFooterProps = ConnectedProps<typeof connector>;
 
-const FooterComponent: React.FC<TFooterProps> = ({configuration, lang}) => {
+const FooterComponent: React.FC<TFooterProps> = ({user, configuration, lang, page}) => {
+  useEffect(() => {}, [user, page, lang]);
+
   const socialLink = (key_config: string, icon: string) => {
     // @ts-ignore
     if (configuration && configuration[key_config]) {
@@ -37,9 +40,19 @@ const FooterComponent: React.FC<TFooterProps> = ({configuration, lang}) => {
               </div>
             </div>
             <div className="col-md-6 m-10px-tb text-center text-md-right">
-              <Link to={`/${lang}/login`} className="show-only-hover mr-2">
-                <i className="fas fa-sign-in-alt" />
-              </Link>
+              {
+                user ?
+                  (<Link to={`/${lang}/profile`} className="show-only-hover mr-2">
+                    <i className="fas fa-user" />
+                  </Link>) :
+                  (<Link to={`/${lang}/login`} className="show-only-hover mr-2">
+                    <i className="fas fa-sign-in-alt" />
+                  </Link>)
+              }
+              {user &&
+                user.is_admin &&
+                page &&
+                (<Link to={`/${lang}/pages/${page.slug}/edit`}><i className="fas fa-pencil-alt" />&nbsp;</Link>)}
               © 2020 copyright all right reserved
             </div>
           </div>

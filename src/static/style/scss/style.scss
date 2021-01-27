@@ -215,6 +215,14 @@
     }
 }
 
+html[lang="ru"] {
+	.about-list {
+		label.ru_long {
+			width: 118px;
+		}
+	}
+}
+
 .about-list {
 	padding-top: 10px;
 	.media {
