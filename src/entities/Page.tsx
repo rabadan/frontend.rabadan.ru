@@ -1,5 +1,6 @@
 import {IPage, IPageResponse} from '../interfaces/IPage';
 import {IAttachment} from "../interfaces/IAttachment";
+import React from "react";
 
 export default class Page implements IPage {
   private readonly _id: string;
@@ -77,5 +78,28 @@ export default class Page implements IPage {
   }
   get updated_at(): string {
     return this._updated_at;
+  }
+
+  get imageTag(): JSX.Element {
+    let img:JSX.Element;
+    if (this._image_crop) {
+      img = (<img className='w-100' src={this._image_crop} alt={this._title} />);
+    } else {
+      img = (
+        <svg className="bd-placeholder-img text-center"
+             width="360"
+             height="360"
+             xmlns="http://www.w3.org/2000/svg"
+             preserveAspectRatio="xMidYMid slice"
+             focusable="false"
+             role="img"
+             aria-label="Placeholder: Thumbnail">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#55595c" />
+          <text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+        </svg>);
+    }
+
+    return img
   }
 }

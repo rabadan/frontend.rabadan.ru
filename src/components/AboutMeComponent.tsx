@@ -18,7 +18,7 @@ type TAboutMeProps = ConnectedProps<typeof connector>;
 
 const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, configuration}) => {
   useEffect(() => {
-    getPage(pageSlug)
+    getPage(pageSlug, lang, 'portrait')
   }, [lang, getPage]);
 
   if (!page) {
@@ -74,7 +74,7 @@ const AboutMeComponent: React.FC<TAboutMeProps> = ({getPage, page, lang, configu
           </div>
           <div className="col-lg-6">
             <div className="about-avatar">
-              <img src={"static/img/about-us.jpg"} title="" alt="" />
+              <img src={ page.image } title="" alt="" />
             </div>
           </div>
         </div>

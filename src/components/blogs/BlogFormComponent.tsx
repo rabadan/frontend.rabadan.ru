@@ -23,7 +23,7 @@ const connector = connect(
 
 type TBlogProps = ConnectedProps<typeof connector>;
 
-const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getBlog, setBlog}) => {
+const BlogFormComponent: React.FC<TBlogProps> = ({lang, blog, user, slug, message, getBlog, setBlog}) => {
   const [title, setTitle] = useState('');
   const [preview, setPreview] = useState('');
   const [body, setBody] = useState('');
@@ -39,11 +39,7 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
     setBody(blog === undefined ? '' : blog.body)
   }, [blog]);
 
-  if (user === undefined) {
-    window.location.assign('/login')
-  }
-
-  if (blog === undefined) {
+  if (user === undefined || blog === undefined) {
     return (
       <div>
         {i18n.t('actions.loading')}
@@ -65,7 +61,7 @@ const BlogFormComponent: React.FC<TBlogProps> = ({blog,user, slug, message, getB
     }
 
     setBlog(blog, formData).then(response => {
-        window.location.assign(`/blogs/${blog.slug}`)
+        window.location.assign(`/${lang}/blogs/${blog.slug}`)
       }).catch(error => {
         console.log('ERROR setBlog(blog, formData)', error)
       });

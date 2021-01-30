@@ -5,11 +5,12 @@ import {IPageResponse} from "../interfaces/IPage";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-async function show(slug: string, lang?: string) {
+async function show(slug: string, lang?: string, image_variant?: string) {
   const url = `${API_URL}api/v1/pages/${slug}`;
-  const headers = (lang === undefined ? undefined : {'Accept-Language': lang});
+  let config = { headers: {}, params: { image_variant: image_variant }}
+  if (lang === undefined) { config['headers'] = { 'Accept-Language': lang } }
 
-  return RequestsService.get<any>(url, headers)
+  return RequestsService.get<any>(url, config)
     .then((response: any) => {
       return response;
     })
