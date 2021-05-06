@@ -2,9 +2,6 @@ import {
   GET_PAGE,
   GET_PAGE_SUCCESS,
   GET_PAGE_FAIL,
-  SET_PAGE,
-  SET_PAGE_SUCCESS,
-  SET_PAGE_FAIL,
   CHANGE_PAGE,
 } from '../actions/Types';
 
@@ -47,22 +44,6 @@ export default function (state = initialState, action: IReduxAction): IPageReduc
       return {
         ...state,
         page: payload.data
-      };
-    case SET_PAGE:
-      return {
-        ...state,
-        apiLoading: true,
-      };
-    case SET_PAGE_SUCCESS:
-      return {
-        ...state,
-        apiLoading: false,
-        page: payload.data
-      };
-    case SET_PAGE_FAIL:
-      return {
-        ...state,
-        apiLoading: false
       };
     default:
       return state;

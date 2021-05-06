@@ -6,10 +6,8 @@ import RegisterComponent from "./auth/RegisterComponent";
 import ProfileComponent from "./auth/ProfileComponent";
 import BlogListComponent from "./blogs/BlogListComponent";
 import BlogItemComponent from "./blogs/BlogItemComponent";
-import BlogFormComponent from "./blogs/BlogFormComponent";
 import ContactsComponent from "./ContactsComponent";
 import AboutMeComponent from "./AboutMeComponent";
-import PageEditComponent from "./PageEditComponent";
 import ResumeComponent from "./ResumeComponent";
 import PortfolioComponent from "./PortfolioComponent";
 
@@ -25,10 +23,8 @@ export default function RoutesComponent() {
       <Route exact path="/:lang/about" component={AboutMeComponent} />
       <Route exact path="/:lang/resume" component={ResumeComponent} />
       <Route exact path="/:lang/portfolio" component={PortfolioComponent} />
-      <Route exact path="/:lang/blogs/edit/:slug" component={BlogFormComponent} />
       <Route exact path="/:lang/blogs/:slug" component={BlogItemComponent} />
       <Route exact path="/:lang/blogs" component={BlogListComponent} />
-      <Route exact path="/:lang/pages/:slug/edit" component={PageEditComponent} />
     </Switch>
   );
 }

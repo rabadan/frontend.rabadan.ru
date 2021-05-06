@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import {TRootState} from "../../index";
 import {logout} from "../../actions/AuthAction";
 import i18n from "../../I18n";
-import {setConfiguration} from "../../actions/ConfigurationAction";
 
 const connector = connect(
   ({ AuthReducer, ConfigurationReducer }: TRootState) => ({
@@ -12,70 +11,11 @@ const connector = connect(
     lang: ConfigurationReducer.lang,
     configuration: ConfigurationReducer.configuration
   }),
-  {logout, setConfiguration},
+  {logout},
 );
 type TProfileProps = ConnectedProps<typeof connector>;
 
-function ConfigurationFormList(props: any) {
-  const configs = props.configuration;
-
-  const listItems = Object.keys(configs).map(key =>
-    <div className="form-row" key={`prop_${key}`}>
-      <FieldForm data={configs[key]} field_name={key} setConfiguration={props.setConfiguration} />
-    </div>
-  )
-
-  return (
-    <div>
-      <form>
-        {listItems}
-      </form>
-    </div>
-  );
-}
-
-function FieldForm(props:any) {
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
-
-  const handleChange = (event:any) => {
-    setData(event.target.value);
-    props.setConfiguration(props.field_name, event.target.value)
-  }
-
-  return (
-    <div className="col-12">
-      <div className="input-group">
-        <div className="input-group-text" style={{minWidth: '200px'}}>
-          {props.field_name}
-        </div>
-        <input
-          type="text"
-          className="form-control"
-          name="email"
-          value={data}
-          onChange={handleChange}
-        />
-      </div>
-    </div>
-  );
-}
-
-const ProfileComponent: React.FC<TProfileProps> = ({lang, configuration, user, logout, setConfiguration}) => {
-  const [listConfiguration, setListConfiguration] = useState(<div><i className="fas fa-spin fa-spinner" /></div>);
-
-  useEffect(() => {
-    if (user && user.is_admin) {
-      setListConfiguration(
-        <div className="container">
-          <ConfigurationFormList configuration={configuration} setConfiguration={setConfiguration} />
-        </div>
-      );
-    }
-  }, [configuration, user, setConfiguration]);
+const ProfileComponent: React.FC<TProfileProps> = ({lang, user, logout}) => {
 
   if (!user) {
     return <Redirect to={`/${lang}/login`} />;
@@ -93,8 +33,6 @@ const ProfileComponent: React.FC<TProfileProps> = ({lang, configuration, user, l
           </div>
         </div>
       </div>
-
-      {listConfiguration}
     </section>
   );
 }

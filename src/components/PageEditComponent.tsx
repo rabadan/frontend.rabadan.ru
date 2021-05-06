@@ -4,7 +4,6 @@ import {TRootState} from "../index";
 import {getBlog} from "../actions/BlogAction";
 import i18n from '../I18n';
 import LangButtonsComponent from "./LangButtonsComponent";
-import PageEditForm from "./forms/PageEditForm";
 
 const connector = connect(
   ({ PageReducer, ConfigurationReducer }: TRootState, {match}: any) => ({
@@ -27,9 +26,6 @@ const PageEditComponent: React.FC<TPageEditProps> = ({slug}) => {
             <LangButtonsComponent />
           </span>
         </h1>
-        <div>
-          <PageEditForm slug={slug} />
-        </div>
       </div>
     </div>
   );

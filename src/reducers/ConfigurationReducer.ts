@@ -2,9 +2,6 @@ import {
   GET_CONFIGURATION,
   GET_CONFIGURATION_SUCCESS,
   GET_CONFIGURATION_FAIL,
-  SET_CONFIGURATION,
-  SET_CONFIGURATION_SUCCESS,
-  SET_CONFIGURATION_FAIL,
   SET_LANG,
 } from '../actions/Types';
 
@@ -74,21 +71,6 @@ export default function (state = initialState, action: IReduxAction): IConfigura
     case GET_CONFIGURATION_FAIL:
       return {
         ...state,
-      };
-    case SET_CONFIGURATION:
-      return {
-        ...state,
-        apiLoading: true
-      };
-    case SET_CONFIGURATION_SUCCESS:
-      return {
-        ...state,
-        apiLoading: false,
-      };
-    case SET_CONFIGURATION_FAIL:
-      return {
-        ...state,
-        apiLoading: false,
       };
     case SET_LANG:
       return {

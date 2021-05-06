@@ -35,17 +35,5 @@ async function show(slug: string) {
     });
 }
 
-async function put(blog: IBlog, formData: FormData) {
-  const url = `${API_URL}api/v1/blogs/${blog.slug}`
-  const headers = {headers: authHeader()};
-  return RequestsService.put<TBlogResponse>(url, formData, headers)
-    .then((response: any) => {
-      return response;
-    })
-    .catch((error: TError) => {
-      throw error;
-    });
-}
-
-const requests = { index, show, put };
+const requests = { index, show };
 export default requests

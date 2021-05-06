@@ -5,9 +5,6 @@ import {
   GET_BLOG,
   GET_BLOG_SUCCESS,
   GET_BLOG_FAIL,
-  SET_BLOG,
-  SET_BLOG_SUCCESS,
-  SET_BLOG_FAIL,
   CHANGE_BLOG,
 } from '../actions/Types';
 
@@ -74,22 +71,6 @@ export default function (state = initialState, action: IReduxAction): IBlogReduc
       return {
         ...state,
         blog: payload.data
-      };
-    case SET_BLOG:
-      return {
-        ...state,
-        apiLoading: true,
-      };
-    case SET_BLOG_SUCCESS:
-      return {
-        ...state,
-        apiLoading: false,
-        blog: payload.data
-      };
-    case SET_BLOG_FAIL:
-      return {
-        ...state,
-        apiLoading: false
       };
     default:
       return state;

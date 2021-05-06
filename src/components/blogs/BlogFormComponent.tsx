@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../../index";
-import {getBlog, setBlog} from "../../actions/BlogAction";
+import {getBlog} from "../../actions/BlogAction";
 // @ts-ignore
 import Time from 'react-time-format'
 import i18n from "../../I18n";
@@ -18,12 +18,12 @@ const connector = connect(
     message: MessageReducer.message,
     lang: ConfigurationReducer.lang
   }),
-  { getBlog, setBlog }
+  { getBlog }
 );
 
 type TBlogProps = ConnectedProps<typeof connector>;
 
-const BlogFormComponent: React.FC<TBlogProps> = ({lang, blog, user, slug, message, getBlog, setBlog}) => {
+const BlogFormComponent: React.FC<TBlogProps> = ({lang, blog, user, slug, message, getBlog}) => {
   const [title, setTitle] = useState('');
   const [preview, setPreview] = useState('');
   const [body, setBody] = useState('');
@@ -59,12 +59,6 @@ const BlogFormComponent: React.FC<TBlogProps> = ({lang, blog, user, slug, messag
     if (image !== null && image !== '') {
       formData.append('blog[image]', image)
     }
-
-    setBlog(blog, formData).then(response => {
-        window.location.assign(`/${lang}/blogs/${blog.slug}`)
-      }).catch(error => {
-        console.log('ERROR setBlog(blog, formData)', error)
-      });
   }
 
   function handleTitleChange(event: any) {

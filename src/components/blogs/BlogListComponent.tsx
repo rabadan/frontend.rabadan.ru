@@ -85,13 +85,11 @@ const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, total_pages, 
 
       <section className="blog-listing gray-bg">
         <div className="container">
-          <div className="row align-items-start">
-            <div className="m-15px-tb">
-              <BlogsRow blogs={blogs} />
+          <div className="m-15px-tb">
+            <BlogsRow blogs={blogs} />
 
-              <div className="col-12">
-                {paginator}
-              </div>
+            <div className="col-12">
+              {paginator}
             </div>
           </div>
         </div>
