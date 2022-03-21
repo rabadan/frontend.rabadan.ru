@@ -3,6 +3,8 @@ import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
 import {getPage} from "../actions/PageAction";
 import i18n from "i18n-js";
+import ResumSaidComponent from './ResumSaidComponent'
+
 
 const pageSlug = 'resume';
 const connector = connect(
@@ -30,6 +32,9 @@ const ResumeComponent: React.FC<TResumeProps> = ({getPage, page, lang}) => {
   // @ts-ignore
   document.querySelector('meta[name="keywords"]').content = page.seo_key
 
+
+  console.log(page)
+
   return (
     <div>
       <section className="page-title dark-bg pt-4 pb-2">
@@ -46,6 +51,7 @@ const ResumeComponent: React.FC<TResumeProps> = ({getPage, page, lang}) => {
         <article className="article">
           <div dangerouslySetInnerHTML={{__html: page.body}} id="resume" />
         </article>
+        <ResumSaidComponent/>
       </div>
     </div>
   );

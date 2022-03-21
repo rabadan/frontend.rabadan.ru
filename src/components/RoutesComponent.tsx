@@ -8,6 +8,7 @@ import BlogListComponent from "./blogs/BlogListComponent";
 import BlogItemComponent from "./blogs/BlogItemComponent";
 import ContactsComponent from "./ContactsComponent";
 import AboutMeComponent from "./AboutMeComponent";
+import ResumSaidComponent from "./ResumSaidComponent";
 import ResumeComponent from "./ResumeComponent";
 import PortfolioComponent from "./PortfolioComponent";
 
@@ -25,6 +26,7 @@ export default function RoutesComponent() {
       <Route exact path="/:lang/portfolio" component={PortfolioComponent} />
       <Route exact path="/:lang/blogs/:slug" component={BlogItemComponent} />
       <Route exact path="/:lang/blogs" component={BlogListComponent} />
+      <Route exact path="/:lang/saya" component={ResumSaidComponent} />
     </Switch>
   );
 }

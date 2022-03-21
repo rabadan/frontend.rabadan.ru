@@ -9,6 +9,7 @@ import HttpClientBuilder from "./services/HttpClientBuilder";
 import ConfigurationReducer from "./reducers/ConfigurationReducer";
 import FeedbackReducer from "./reducers/FeedbackReducer";
 import PageReducer from "./reducers/PageReducer";
+import PortfolioReducer from "./reducers/PortfolioReducer"
 
 const rootReducer = combineReducers({
   AuthReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   MessageReducer,
   ConfigurationReducer,
   PageReducer,
-  FeedbackReducer
+  FeedbackReducer,
+  PortfolioReducer
 });
 
 const axiosMiddleware = reduxAxiosMiddleware(HttpClientBuilder.fetchClient());
