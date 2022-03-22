@@ -36,10 +36,10 @@ export default function (state = initialState, action: IReduxAction): IPortfolio
       return {
         ...state,
         apiLoading: false,
-        portfolios: payload.data.posts,
+        portfolios: payload.data,
         total_pages: payload.data.total_pages,
       };
-    case GET_PORTFOLIOS_FAIL:
+      case GET_PORTFOLIOS_FAIL:
       return {
         ...state,
         apiLoading: false,
