@@ -1,7 +1,7 @@
 import authHeader from '../services/AuthHeader';
 import RequestsService from "../services/RequestsService";
 import {TError} from "../interfaces/IError";
-import {IBlog, TBlogListResponse, TBlogResponse} from "../interfaces/IBlog";
+import {TBlogListResponse, TBlogResponse} from "../interfaces/IBlog";
 import Blog from "../entities/Blog";
 
 const API_URL = process.env.REACT_APP_API_URL;

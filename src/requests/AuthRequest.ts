@@ -7,10 +7,9 @@ const API_URL = process.env.REACT_APP_API_URL;
 async function sign_in(email: string, password: string) {
   const url = `${API_URL}api/v1/login`;
   const params = { 'user': { email, password }};
-
   return RequestsService.post<TAuthResponse>(url, params)
     .then((response: TAuthResponse) => {
-      return response.jwt
+      return response.token;
     })
     .catch((error: TError) => {
       throw error;
@@ -23,7 +22,7 @@ async function sign_up(name: string, email: string, password: string) {
 
   return RequestsService.post<TAuthResponse>(url, params)
     .then((response: TAuthResponse) => {
-      return response.jwt
+      return response.token
     })
     .catch((error: TError) => {
       throw error;
@@ -35,7 +34,7 @@ async function sign_in_oauth(data: IOauthParams) {
 
   return RequestsService.post<TAuthResponse>(url, data)
     .then((response: TAuthResponse) => {
-      return response.jwt
+      return response.token
     })
     .catch((error: TError) => {
       throw error;

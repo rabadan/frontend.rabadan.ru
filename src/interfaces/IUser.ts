@@ -1,5 +1,5 @@
 export type TAuthResponse = {
-  jwt: string;
+  token: string;
 }
 
 export interface IUser {
