@@ -33,9 +33,10 @@ const FooterComponent: React.FC<TFooterProps> = ({user, configuration, lang, pag
           <div className="row align-items-center">
             <div className="col-md-6 m-10px-tb">
               <div className="nav justify-content-center justify-content-md-start">
-                {socialLink('social_facebook', 'fab fa-facebook-f')}
-                {socialLink('social_instagram', 'fab fa-instagram')}
+                {socialLink('social_github', 'fab fa-github')}
                 {socialLink('social_linkedin', 'fab fa-linkedin-in')}
+                {socialLink('social_instagram', 'fab fa-instagram')}
+                {socialLink('social_facebook', 'fab fa-facebook-f')}
                 {socialLink('social_vk', 'fab fa-vk')}
               </div>
             </div>

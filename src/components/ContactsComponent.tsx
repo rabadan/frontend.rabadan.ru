@@ -47,10 +47,11 @@ const ContactsComponent: React.FC<TContactsProps> = ({configuration}) => {
                 <p>{configuration.contacts_phone}</p>
               </div>
               <div className="social-share nav">
-                {socialLink('social_facebook', 'fab fa-vk', 'linkedin')}
-                {socialLink('social_facebook', 'fab fa-facebook', 'behance')}
-                {socialLink('social_instagram', 'fab fa-instagram', 'dribbble')}
+                {socialLink('social_github', 'fab fa-github', 'github_bg')}
                 {socialLink('social_linkedin', 'fab fa-linkedin-in', 'linkedin')}
+                {socialLink('social_instagram', 'fab fa-instagram', 'dribbble')}
+                {socialLink('social_facebook', 'fab fa-facebook', 'behance')}
+                {socialLink('social_vk', 'fab fa-vk', 'vk_bg')}
               </div>
             </div>
           </div>
