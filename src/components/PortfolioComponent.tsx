@@ -1,27 +1,29 @@
 import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from "react-redux";
 import {TRootState} from "../index";
-import {getPage} from "../actions/PageAction";
 import i18n from "i18n-js";
+import {getPage} from "../actions/PageAction";
+import {getPortfolioItems} from "../actions/PortfolioItemAction";
+import {PortfolioItemsComponent} from "./portfolios/PortfolioItemsComponent";
 
 const pageSlug = 'portfolio';
 const connector = connect(
-  ({ ConfigurationReducer, PageReducer }: TRootState) => ({
+  ({ConfigurationReducer, PageReducer, PortfolioItemReducer}: TRootState) => ({
     lang: ConfigurationReducer.lang,
+    portfolio_items: PortfolioItemReducer.portfolio_items,
     page: PageReducer.page
   }),
-  {getPage}
+  {getPortfolioItems, getPage}
 );
 
-type TPortfolioProps = ConnectedProps<typeof connector>;
+type TPortfolioItemProps = ConnectedProps<typeof connector>;
 
-const PortfolioComponent: React.FC<TPortfolioProps> = ({getPage, page, lang}) => {
-  useEffect(() => {
-    getPage(pageSlug, lang, 'portrait')
-  }, [lang, getPage]);
+const PortfolioComponent: React.FC<TPortfolioItemProps> = ({getPage, getPortfolioItems, page, lang, portfolio_items}) => {
+  useEffect(() => {getPage(pageSlug, lang, 'portrait')}, [lang, getPage]);
+  useEffect(() => {getPortfolioItems()}, [lang, getPortfolioItems]);
 
   if (!page) {
-    return (<h1>Loading... <i className='fas fs-spin fa-spinner' /></h1>)
+    return (<h1>Loading... <i className='fas fs-spin fa-spinner'/></h1>)
   }
 
   document.title = page.title || i18n.t('navbar.about');
@@ -44,7 +46,8 @@ const PortfolioComponent: React.FC<TPortfolioProps> = ({getPage, page, lang}) =>
       </section>
       <div className="px-3 pt-1">
         <article className="article">
-          <div dangerouslySetInnerHTML={{__html: page.body}} id="portfolio" />
+          <div dangerouslySetInnerHTML={{__html: page.body}} id="portfolio"/>
+          <PortfolioItemsComponent portfolio_items={portfolio_items} />
         </article>
       </div>
     </div>

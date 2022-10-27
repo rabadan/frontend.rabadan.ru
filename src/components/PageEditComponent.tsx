@@ -6,12 +6,12 @@ import i18n from '../I18n';
 import LangButtonsComponent from "./LangButtonsComponent";
 
 const connector = connect(
-  ({ PageReducer, ConfigurationReducer }: TRootState, {match}: any) => ({
+  ({PageReducer, ConfigurationReducer}: TRootState, {match}: any) => ({
     page: PageReducer.page,
     lang: ConfigurationReducer.lang,
     slug: match.params.slug
   }),
-  { getBlog }
+  {getBlog}
 );
 
 type TPageEditProps = ConnectedProps<typeof connector>;
@@ -23,7 +23,7 @@ const PageEditComponent: React.FC<TPageEditProps> = ({slug}) => {
         <h1 className='d-flex'>
           {i18n.t('actions.edit_page')} "{slug}"
           <span className='m-3' style={{height: '23px'}}>
-            <LangButtonsComponent />
+            <LangButtonsComponent/>
           </span>
         </h1>
       </div>

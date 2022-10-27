@@ -9,6 +9,7 @@ import HttpClientBuilder from "./services/HttpClientBuilder";
 import ConfigurationReducer from "./reducers/ConfigurationReducer";
 import FeedbackReducer from "./reducers/FeedbackReducer";
 import PageReducer from "./reducers/PageReducer";
+import PortfolioItemReducer from "./reducers/PortfolioItemReducer";
 
 const rootReducer = combineReducers({
   AuthReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   MessageReducer,
   ConfigurationReducer,
   PageReducer,
+  PortfolioItemReducer,
   FeedbackReducer
 });
 
