@@ -50,10 +50,6 @@ const FooterComponent: React.FC<TFooterProps> = ({user, configuration, lang, pag
                     <i className="fas fa-sign-in-alt" />
                   </Link>)
               }
-              {user &&
-                user.is_admin &&
-                page &&
-                (<Link to={`/${lang}/pages/${page.slug}/edit`}><i className="fas fa-pencil-alt" />&nbsp;</Link>)}
               © 2020 copyright all right reserved
             </div>
           </div>

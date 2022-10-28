@@ -1,5 +1,3 @@
-import {IAttachment} from "./IAttachment";
-
 export interface IPage {
   id: string,
   title: string,
@@ -9,7 +7,6 @@ export interface IPage {
   body: string,
   image?: string,
   image_crop?: string,
-  attachments?: IAttachment[],
   footer: string,
   seo_desc: string,
   seo_key: string,
@@ -28,7 +25,6 @@ export type TPage = {
   body: string,
   image?: string,
   image_crop?: string,
-  attachments?: IAttachment[],
   footer: string,
   seo_desc: string,
   seo_key: string,
@@ -45,7 +41,6 @@ export interface IPageResponse {
   body: string,
   image?: string,
   image_crop?: string,
-  attachments?: IAttachment[],
   footer: string,
   seo_desc: string,
   seo_key: string,

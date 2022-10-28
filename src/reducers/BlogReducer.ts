@@ -10,18 +10,26 @@ import {
 
 import {IReduxAction} from "../interfaces/IReduxAction";
 import {IBlog} from "../interfaces/IBlog";
-
+import {IPagination} from "../interfaces/IPagination";
 
 interface IBlogReducer {
   apiLoading: boolean,
-  page?: number,
-  total_pages?: number,
+  pagination?: IPagination,
   blog?: IBlog,
   blogs: IBlog[]
 }
 
 const initialState: IBlogReducer = {
   apiLoading: false,
+  pagination: {
+    current: 1,
+    has_next_page: false,
+    previous: undefined,
+    next: undefined,
+    limit: 1,
+    total_pages: 1,
+    total_count: 1
+  },
   blog: undefined,
   blogs: []
 }
@@ -38,17 +46,17 @@ export default function (state = initialState, action: IReduxAction): IBlogReduc
         apiLoading: true,
       };
     case GET_BLOGS_SUCCESS:
+      console.log('GET_BLOGS_SUCCESS', payload.data)
       return {
         ...state,
         apiLoading: false,
-        blogs: payload.data.posts,
-        total_pages: payload.data.total_pages,
+        blogs: payload.data.blogs,
+        pagination: payload.data.pagination,
       };
     case GET_BLOGS_FAIL:
       return {
         ...state,
-        apiLoading: false,
-        total_pages: undefined
+        apiLoading: false
       };
     case GET_BLOG:
       return {

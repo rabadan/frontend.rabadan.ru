@@ -1,5 +1,4 @@
 import {IBlog} from '../interfaces/IBlog';
-import {IAttachment} from '../interfaces/IAttachment';
 import React from "react";
 
 export default class Blog implements IBlog {
@@ -9,9 +8,10 @@ export default class Blog implements IBlog {
   private readonly _preview: string;
   private readonly _slug: string;
   private readonly _body: string;
+  private readonly _category: string | undefined;
+  private readonly _tag_list: string[];
   private readonly _image?: string;
   private readonly _image_crop?: string;
-  private readonly _attachments: IAttachment[] | undefined;
   private readonly _created_at: string;
   private readonly _lang: string;
   private readonly _updated_at: string;
@@ -23,9 +23,10 @@ export default class Blog implements IBlog {
     this._title = blog.title;
     this._slug = blog.slug;
     this._body = blog.body;
+    this._category = blog.category;
+    this._tag_list = blog.tag_list;
     this._image = blog.image;
     this._image_crop = blog.image_crop;
-    this._attachments = blog.attachments;
     this._lang = blog.lang;
     this._created_at = blog.created_at;
     this._updated_at = blog.updated_at;
@@ -34,7 +35,7 @@ export default class Blog implements IBlog {
   get imageTag(): JSX.Element {
     let img:JSX.Element;
     if (this._image_crop) {
-      img = (<img className='w-100' src={this._image_crop} alt={this._title} />);
+      img = (<img className='w-100 max-height-200' src={this._image_crop} alt={this._title} />);
     } else {
       img = (
         <svg className="bd-placeholder-img text-center"
@@ -44,10 +45,10 @@ export default class Blog implements IBlog {
              preserveAspectRatio="xMidYMid slice"
              focusable="false"
              role="img"
-             aria-label="Placeholder: Thumbnail">
-          <title>Placeholder</title>
+             aria-label={this._title}>
+          <title>{this._title}</title>
           <rect width="100%" height="100%" fill="#55595c" />
-          <text x="40%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+          <text x="40%" y="50%" fill="#eceeef" dy=".3em">{this._title}</text>
         </svg>);
     }
 
@@ -68,6 +69,14 @@ export default class Blog implements IBlog {
 
   get preview(): string {
     return this._preview;
+  }
+
+  get category(): string | undefined {
+    return this._category;
+  }
+
+  get tag_list(): string[] {
+    return this._tag_list;
   }
 
   get image(): string | undefined {
@@ -93,6 +102,7 @@ export default class Blog implements IBlog {
   get created_at(): string {
     return this._created_at;
   }
+
   get updated_at(): string {
     return this._updated_at;
   }

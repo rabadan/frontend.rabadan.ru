@@ -1,5 +1,4 @@
 import {IPage, IPageResponse} from '../interfaces/IPage';
-import {IAttachment} from "../interfaces/IAttachment";
 import React from "react";
 
 export default class Page implements IPage {
@@ -11,7 +10,6 @@ export default class Page implements IPage {
   private readonly _body: string;
   private readonly _image?: string;
   private readonly _image_crop?: string;
-  private readonly _attachments?: IAttachment[] | undefined;
   private readonly _footer: string;
   private readonly _seo_desc: string;
   private readonly _seo_key: string;
@@ -28,7 +26,6 @@ export default class Page implements IPage {
     this._body = page.body;
     this._image = page.image;
     this._image_crop = page.image_crop;
-    this._attachments = page.attachments;
     this._footer = page.footer;
     this._seo_desc = page.seo_desc;
     this._seo_key = page.seo_key;

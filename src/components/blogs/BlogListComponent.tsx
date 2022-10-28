@@ -12,7 +12,7 @@ import {BlogsRow} from "./BLogRow";
 const connector = connect(
   ({ BlogReducer, ConfigurationReducer }: TRootState) => ({
     blogs: BlogReducer.blogs,
-    total_pages: BlogReducer.total_pages,
+    pagination: BlogReducer.pagination,
     lang: ConfigurationReducer.lang,
   }),
   { getBlogs },
@@ -20,7 +20,7 @@ const connector = connect(
 
 type TBlogListProps = ConnectedProps<typeof connector>;
 
-const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, total_pages, getBlogs}) => {
+const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, pagination, getBlogs}) => {
   const [page, setPage] = useState(0);
   const search = useLocation().search;
   const params_page = new URLSearchParams(search).get('page');
@@ -44,16 +44,17 @@ const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, total_pages, 
     history.push(`/${lang}/blogs?page=${new_page+1}`)
   }
 
-  let paginator;
+  let paginator_html;
+  console.log('pagination', Date.now(), pagination, lang, page, blogs);
 
-  if (total_pages) {
-    paginator = (
+  if (pagination && pagination.total_pages) {
+    paginator_html = (
       <ReactPaginate
         previousLabel={i18n.t('paginator.previous')}
         nextLabel={i18n.t('paginator.next')}
         breakLabel={'...'}
         breakClassName={'break-me'}
-        pageCount={total_pages}
+        pageCount={pagination.total_pages}
         marginPagesDisplayed={2}
         initialPage={page}
         pageRangeDisplayed={5}
@@ -89,7 +90,7 @@ const BlogListComponent: React.FC<TBlogListProps> = ({lang, blogs, total_pages, 
             <BlogsRow blogs={blogs} />
 
             <div className="col-12">
-              {paginator}
+              {paginator_html}
             </div>
           </div>
         </div>

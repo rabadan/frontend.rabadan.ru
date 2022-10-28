@@ -30,7 +30,9 @@ export function BlogsRow(props: { blogs: IBlog[]; }) {
           <p>{blog.preview}</p>
           <div className="btn-bar">
             <Link to={`/${i18n.locale}/blogs/${blog.slug}`} className="px-btn-arrow">
-              <span>Read More</span>
+              <span>
+                {i18n.t('actions.read_more')}
+              </span>
               <i className="arrow" />
             </Link>
           </div>

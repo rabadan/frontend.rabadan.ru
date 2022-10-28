@@ -13,8 +13,8 @@ async function index(page:number = 1) {
   return RequestsService.get<TBlogListResponse>(url, params)
     .then((response: TBlogListResponse) => {
       return {
-        posts: response.posts.map(function(blogItem) {return new Blog(blogItem) }),
-        total_pages: response.total_pages
+        blogs: response.blogs.map(function(blogItem) {return new Blog(blogItem) }),
+        pagination: response.pagination
       };
     })
     .catch((error: TError) => {
@@ -28,7 +28,7 @@ async function show(slug: string) {
 
   return RequestsService.get<TBlogResponse>(url, params)
     .then((response: TBlogResponse) => {
-      return new Blog(response);
+      return new Blog(response.blog);
     })
     .catch((error: TError) => {
       throw error;

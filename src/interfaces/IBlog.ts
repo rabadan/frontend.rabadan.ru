@@ -1,4 +1,4 @@
-import {IAttachment} from "./IAttachment";
+import {IPagination} from "./IPagination";
 
 export interface IBlog {
   id: string,
@@ -6,47 +6,38 @@ export interface IBlog {
   slug: string,
   preview: string,
   body: string,
+  category?: string,
+  tag_list: string[],
   image?: string,
   image_crop?: string,
   imageTag?: JSX.Element,
-  attachments?: IAttachment[],
   user_id: string,
   lang: string,
   created_at: string,
   updated_at: string,
 }
 
-export type TBlog = {
+export interface TBlog {
   id: string,
   title: string,
   slug: string,
   preview: string,
   body: string,
+  category?: string,
+  tag_list: string[],
   image?: string,
   image_crop?: string,
-  attachments?: IAttachment[],
   user_id: string,
   lang: string,
   created_at: string,
-  updated_at: string,
+  updated_at: string
 }
 
 export interface TBlogListResponse {
-  posts: TBlogResponse[],
-  total_pages: number
+  blogs: TBlog[],
+  pagination: IPagination
 }
 
 export interface TBlogResponse {
-  id: string,
-  title: string,
-  slug: string,
-  preview: string,
-  body: string,
-  image?: string,
-  image_crop?: string,
-  attachments?: IAttachment[],
-  user_id: string,
-  lang: string,
-  created_at: string,
-  updated_at: string,
+  blog: TBlog
 }

@@ -7,6 +7,7 @@
   },
   "navbar": {
     "home": "Home",
+    "back": "Back",
     "about": "About",
     "resume": "Resume",
     "portfolio": "Portfolio",
@@ -55,7 +56,8 @@
     "edit_page": "Редактирование страницы",
     "saved": "Saved!",
     "not_saved": "Not saved.. :( Please try again..",
-    "update": "Update"
+    "update": "Update",
+    "read_more": "Read more"
   },
   "contacts": {
     "your_name": "Your name",
